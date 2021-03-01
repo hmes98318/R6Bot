@@ -1,0 +1,158 @@
+var embed = require('./embed.js');
+var record = require('./r6_record');
+
+
+module.exports = {
+    R6_type: function (type, r6name, newTracker) {
+        if (newTracker[42] !== undefined && newTracker[44] !== undefined) { //檢查搜尋到的玩家是否正確(存在)
+
+            if (type === 'RANK' && r6name !== undefined) { //season RANK [42]-[53]
+                console.log('RANK')
+                //header, user, url, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
+                return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.RANK_win_percent, record.RANK_win, record.RANK_loss, record.RANK_kd, record.RANK_kill, record.RANK_death, record.RANK_killMatch, record.RANK_rank, record.RANK_mmr, record.RANK_rank_img)
+            }
+            else if (type === 'CASUAL' && r6name !== undefined) { //casual [32]-[41]
+                console.log('CASUAL')
+                //header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
+                return embed.R6_Casual_Embed(record.header, record.user, record.url, record.CASUAL_timePlayed, record.CASUAL_win_percent, record.CASUAL_win, record.CASUAL_loss, record.CASUAL_kd, record.CASUAL_kill, record.CASUAL_death, record.CASUAL_killMatch, record.CASUAL_rank, record.CASUAL_mmr, record.CASUAL_rank_img)
+            }
+            else if (type === undefined) { //general [0]-[11]
+                console.log('GENERAL')
+                //header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills 
+                return embed.R6_General_Embed(record.header, record.user, record.url, record.GENERAL_timePlayed, record.GENERAL_win_percent, record.GENERAL_win, record.GENERAL_loss, record.GENERAL_kd, record.GENERAL_death, record.GENERAL_handShot, record.GENERAL_handShots, record.GENERAL_meleeKills, record.GENERAL_blindKills)
+            }
+        }
+        else if (r6name === 'HELP' || r6name === 'help') {//不是則檢測是否為 +r6 help
+            console.log('HELP')
+            return embed.R6_help()
+        }
+    },
+
+    filterArray: function (clearArray) {
+        let index = -1,
+            arrayLength = clearArray ? clearArray.length : 0,
+            resIndex = -1,
+            result = [];
+
+        while (++index < arrayLength) {
+            let value = clearArray[index];
+            if (value != null && value !== '' && value !== undefined && value !== false && value !== 0 && value != ',') {
+                result[++resIndex] = value;
+            }
+        }
+        return result
+    },
+
+    R6_record: function (header, r6name, url, newTracker) {
+
+        record.header = header;
+        record.user = r6name;
+        record.url = url;
+        //season RANK [42]-[53]
+        record.RANK_win_percent = newTracker[46];
+        record.RANK_win = newTracker[47];
+        record.RANK_loss = newTracker[48];
+        record.RANK_kd = newTracker[42];
+        record.RANK_kill = newTracker[44];
+        record.RANK_death = newTracker[45];
+        record.RANK_killMatch = newTracker[43];
+        record.RANK_rank = newTracker[51];
+        record.RANK_mmr = String(newTracker[52]);
+        record.RANK_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[51])}&champ=0`;
+        //casual [32]-[41]
+        record.CASUAL_timePlayed = newTracker[32];
+        record.CASUAL_win_percent = newTracker[38];
+        record.CASUAL_win = newTracker[33];
+        record.CASUAL_loss = newTracker[34];
+        record.CASUAL_kd = newTracker[39];
+        record.CASUAL_kill = newTracker[37];
+        record.CASUAL_death = newTracker[36];
+        record.CASUAL_killMatch = newTracker[40];
+        record.CASUAL_rank = newTracker[62];
+        record.CASUAL_mmr = String(newTracker[64]);
+        record.CASUAL_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[62])}&champ=0`;
+        //general [0]-[11]
+        record.GENERAL_timePlayed = newTracker[7];
+        record.GENERAL_win_percent = newTracker[6];
+        record.GENERAL_win = newTracker[4];
+        record.GENERAL_loss = newTracker[5];
+        record.GENERAL_kd = newTracker[1];
+        record.GENERAL_death = newTracker[2];
+        record.GENERAL_handShot = newTracker[0];
+        record.GENERAL_handShots = newTracker[3];
+        record.GENERAL_meleeKills = newTracker[10];
+        record.GENERAL_blindKills = newTracker[11];
+    },
+
+    RankImage: function (Img) {
+        switch (String(Img)) {
+            case 'COPPER V':
+                return '1'
+
+            case 'COPPER IV':
+                return '2'
+
+            case 'COPPER III':
+                return '3'
+
+            case 'COPPER II':
+                return '4'
+
+            case 'COPPER I':
+                return '5'
+
+            case 'BRONZE III':
+                return '6'
+
+            case 'BRONZE II':
+                return '7'
+
+            case 'BRONZE I':
+                return '8'
+
+            case 'SILVER IV':
+                return '9'
+
+            case 'SILVER III':
+                return '10'
+
+            case 'SILVER II':
+                return '11'
+
+            case 'SILVER I':
+                return '12'
+
+            case 'GOLD IV':
+                return '13'
+
+            case 'GOLD III':
+                return '14'
+
+            case 'GOLD II':
+                return '15'
+
+            case 'GOLD I':
+                return '16'
+
+            case 'PLATINUM III':
+                return '17'
+
+            case 'PLATINUM II':
+                return '18'
+
+            case 'PLATINUM I':
+                return '19'
+
+            case 'DIAMON':
+                return '20'
+
+            case 'CHAMPIONS':
+                return '21'
+
+            case 'UNRANKED':
+                return '22'
+
+        }
+    }
+
+}
