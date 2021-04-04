@@ -1,56 +1,187 @@
+const Discord = require('discord.js');
 
 
-function Record(header, user, url,
-  RANK_win_percent, RANK_win, RANK_loss, RANK_kd, RANK_kill, RANK_death, RANK_killMatch, RANK_rank, RANK_mmr, RANK_rank_img,
-  CASUAL_timePlayed, CASUAL_win_percent, CASUAL_win, CASUAL_loss, CASUAL_kd, CASUAL_kill, CASUAL_death, CASUAL_killMatch, CASUAL_rank, CASUAL_mmr, CASUAL_rank_img,
-  CASUAL_NO_RANK_rank, CASUAL_NO_RANK_mmr, CASUAL_NO_RANK_rank_img,
-  GENERAL_timePlayed, GENERAL_win_percent, GENERAL_win, GENERAL_loss, GENERAL_kd, GENERAL_death, GENERAL_handShot, GENERAL_handShots, GENERAL_meleeKills, GENERAL_blindKills) {
+module.exports = {
 
+    R6_Ranked_Embed: function (header, user, url, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img) {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .setTitle(`Open ${user} R6 Tracker Profile`)
+            .setURL(url)
+            .setAuthor(user, header, url)
+            .setDescription('Ranked')
+            .setThumbnail(rank_img)
+            .addFields(
+                { name: 'Ranked', value: `**${rank}**`, inline: true },
+                { name: 'MMR', value: `**${mmr}**`, inline: true },
+                { name: '\u200B', value: '\u200B' },
+                { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
+                { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
+            )
+            .setTimestamp()
+            .setFooter('', url);
 
-  this.header = header;
-  this.user = user;
-  this.url = url;
+        return trackerEmbed
+    },
 
-  //season RANK [42]-[53]
-  this.RANK_win_percent = RANK_win_percent;
-  this.RANK_win = RANK_win;
-  this.RANK_loss = RANK_loss;
-  this.RANK_kd = RANK_kd;
-  this.RANK_kill = RANK_kill;
-  this.RANK_death = RANK_death;
-  this.RANK_killMatch = RANK_killMatch;
-  this.RANK_rank = RANK_rank;
-  this.RANK_mmr = RANK_mmr;
-  this.RANK_rank_img = RANK_rank_img;
+    R6_Casual_Embed: function (header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img) {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .setTitle(`Open ${user} R6 Tracker Profile`)
+            .setURL(url)
+            .setAuthor(user, header, url)
+            .setDescription('Casual')
+            .setThumbnail(rank_img)
+            .addFields(
+                { name: 'Ranked', value: `**${rank}**`, inline: true },
+                { name: 'MMR', value: `**${mmr}**`, inline: true },
+                { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
 
-  //casual [32]-[41]
-  this.CASUAL_timePlayed = CASUAL_timePlayed;
-  this.CASUAL_win_percent = CASUAL_win_percent;
-  this.CASUAL_win = CASUAL_win;
-  this.CASUAL_loss = CASUAL_loss;
-  this.CASUAL_kd = CASUAL_kd;
-  this.CASUAL_kill = CASUAL_kill;
-  this.CASUAL_death = CASUAL_death;
-  this.CASUAL_killMatch = CASUAL_killMatch;
-  this.CASUAL_rank = CASUAL_rank;
-  this.CASUAL_mmr = CASUAL_mmr;
-  this.CASUAL_rank_img = CASUAL_rank_img;
+                { name: '\u200B', value: '\u200B' },
+                { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
+                { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
+            )
+            .setTimestamp()
+            .setFooter('', url);
 
-  //casual no RANK 
-  this.CASUAL_NO_RANK_rank = CASUAL_NO_RANK_rank;
-  this.CASUAL_NO_RANK_mmr = CASUAL_NO_RANK_mmr;
-  this.CASUAL_NO_RANK_rank_img = CASUAL_NO_RANK_rank_img;
+        return trackerEmbed
+    },
 
-  //general [0]-[11]
-  this.GENERAL_timePlayed = GENERAL_timePlayed;
-  this.GENERAL_win_percent = GENERAL_win_percent;
-  this.GENERAL_win = GENERAL_win;
-  this.GENERAL_loss = GENERAL_loss;
-  this.GENERAL_kd = GENERAL_kd;
-  this.GENERAL_death = GENERAL_death;
-  this.GENERAL_handShot = GENERAL_handShot;
-  this.GENERAL_handShots = GENERAL_handShots;
-  this.GENERAL_meleeKills = GENERAL_meleeKills;
-  this.GENERAL_blindKills = GENERAL_blindKills;
+    R6_General_Embed: function (header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills) {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .setTitle(`Open ${user} R6 Tracker Profile`)
+            .setURL(url)
+            .setAuthor(user, header, url)
+            .setDescription('General Profile')
+            .setThumbnail(header)
+            .addFields(
+                { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\n\Death **${death}**`, inline: true },
+                { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
+                { name: '\u200B', value: '\u200B' },
+                { name: 'Hand Shot', value: `**${handShot}**\nHand Shots **${handShots}**`, inline: true },
+                { name: 'Melee Kills', value: `**${meleeKills}**`, inline: true },
+                { name: 'Blind Kills', value: `**${blindKills}**`, inline: true },
+            )
+            .setTimestamp()
+            .setFooter('', url);
+
+        return trackerEmbed
+    },
+
+    R6_help: function () {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .addFields(
+                { name: 'R6 Tracker', value: `+r6 [your name] >> 總覽\n+r6 [your name] rank >> 排位\n+r6 [your name] casual >> 一般場`, inline: true },
+                { name: 'example:', value: `+r6 blahaj_waifu\n+r6 blahaj_waifu rank\n+r6 blahaj_waifu casual`, inline: false },
+            )
+
+        return trackerEmbed
+    },
+
+    R6_Not_Found: function () {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .addFields(
+                { name: '404 Not Found. We are unable to find your profile.', value: 'Please check your spelling and make sure you are searching by the correct platform.', inline: true },
+            )
+
+        return trackerEmbed
+    },
 }
-let record = new Record();
+
+
+
+function R6_Ranked_Embed(header, user, url, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img) {
+    const trackerEmbed = new Discord.MessageEmbed()
+        .setColor('#ff00ee')
+        .setTitle(`Open ${user} R6 Tracker Profile`)
+        .setURL(url)
+        .setAuthor(user, header, url)
+        .setDescription('Ranked')
+        .setThumbnail(rank_img)
+        .addFields(
+            { name: 'Ranked', value: `**${rank}**`, inline: true },
+            { name: 'MMR', value: `**${mmr}**`, inline: true },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+            { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
+            { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
+        )
+        .setTimestamp()
+        .setFooter('', url);
+
+    return trackerEmbed
+}
+
+function R6_Casual_Embed(header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img) {
+    const trackerEmbed = new Discord.MessageEmbed()
+        .setColor('#ff00ee')
+        .setTitle(`Open ${user} R6 Tracker Profile`)
+        .setURL(url)
+        .setAuthor(user, header, url)
+        .setDescription('Casual')
+        .setThumbnail(rank_img)
+        .addFields(
+            { name: 'Ranked', value: `**${rank}**`, inline: true },
+            { name: 'MMR', value: `**${mmr}**`, inline: true },
+            { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
+
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+            { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
+            { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
+        )
+        .setTimestamp()
+        .setFooter('', url);
+
+    return trackerEmbed
+}
+
+function R6_General_Embed(header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills) {
+    const trackerEmbed = new Discord.MessageEmbed()
+        .setColor('#ff00ee')
+        .setTitle(`Open ${user} R6 Tracker Profile`)
+        .setURL(url)
+        .setAuthor(user, header, url)
+        .setDescription('General Profile')
+        .setThumbnail(header)
+        .addFields(
+            { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+            { name: 'K/D', value: `**${kd}**\n\Death **${death}**`, inline: true },
+            { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Hand Shot', value: `**${handShot}**\nHand Shots **${handShots}**`, inline: true },
+            { name: 'Melee Kills', value: `**${meleeKills}**`, inline: true },
+            { name: 'Blind Kills', value: `**${blindKills}**`, inline: true },
+        )
+        .setTimestamp()
+        .setFooter('', url);
+
+    return trackerEmbed
+}
+
+function R6_help() {
+    const trackerEmbed = new Discord.MessageEmbed()
+        .setColor('#ff00ee')
+        .addFields(
+            { name: 'R6 Tracker', value: `+r6 [your name] >> 總覽\n+r6 casual [your name] >> 一般場\n+r6 rank [your name] >> 排位`, inline: true },
+            { name: 'example:', value: `+r6 blahaj_waifu\n+r6 casual blahaj_waifu\n+r6 rank blahaj_waifu`, inline: false },
+        )
+
+    return trackerEmbed
+}
+
+function R6_Not_Found() {
+    const trackerEmbed = new Discord.MessageEmbed()
+        .setColor('#ff00ee')
+        .addFields(
+            { name: '404 Not Found. We are unable to find your profile.', value: 'Please check your spelling and make sure you are searching by the correct platform.', inline: true },
+        )
+
+    return trackerEmbed
+}
