@@ -1,3 +1,6 @@
+const Discord = require('discord.js');
+var request = require("request");
+var cheerio = require("cheerio");
 var embed = require('./embed.js');
 var record = require('./r6_record');
 
@@ -13,8 +16,14 @@ module.exports = {
             }
             else if (type === 'CASUAL' && r6name !== undefined) { //casual [32]-[41]
                 console.log('CASUAL')
-                //header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
-                return embed.R6_Casual_Embed(record.header, record.user, record.url, record.CASUAL_timePlayed, record.CASUAL_win_percent, record.CASUAL_win, record.CASUAL_loss, record.CASUAL_kd, record.CASUAL_kill, record.CASUAL_death, record.CASUAL_killMatch, record.CASUAL_rank, record.CASUAL_mmr, record.CASUAL_rank_img)
+                if (record.CASUAL_rank == undefined) {
+                    //casual havent played RANK
+                    return embed.R6_Casual_Embed(record.header, record.user, record.url, record.CASUAL_timePlayed, record.CASUAL_win_percent, record.CASUAL_win, record.CASUAL_loss, record.CASUAL_kd, record.CASUAL_kill, record.CASUAL_death, record.CASUAL_killMatch, record.CASUAL_NO_RANK_rank, record.CASUAL_NO_RANK_mmr, record.CASUAL_NO_RANK_rank_img)
+                }
+                else {
+                    //header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
+                    return embed.R6_Casual_Embed(record.header, record.user, record.url, record.CASUAL_timePlayed, record.CASUAL_win_percent, record.CASUAL_win, record.CASUAL_loss, record.CASUAL_kd, record.CASUAL_kill, record.CASUAL_death, record.CASUAL_killMatch, record.CASUAL_rank, record.CASUAL_mmr, record.CASUAL_rank_img)
+                }
             }
             else if (type === undefined) { //general [0]-[11]
                 console.log('GENERAL')
@@ -71,6 +80,10 @@ module.exports = {
         record.CASUAL_rank = newTracker[62];
         record.CASUAL_mmr = String(newTracker[64]);
         record.CASUAL_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[62])}&champ=0`;
+        //casual no RANK 
+        record.CASUAL_NO_RANK_rank = newTracker[50];
+        record.CASUAL_NO_RANK_mmr = String(newTracker[52]);
+        record.CASUAL_NO_RANK_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[50])}&champ=0`;
         //general [0]-[11]
         record.GENERAL_timePlayed = newTracker[7];
         record.GENERAL_win_percent = newTracker[6];
@@ -143,7 +156,7 @@ module.exports = {
             case 'PLATINUM I':
                 return '19'
 
-            case 'DIAMON':
+            case 'DIAMOND':
                 return '20'
 
             case 'CHAMPIONS':
