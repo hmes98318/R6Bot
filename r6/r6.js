@@ -35,6 +35,10 @@ module.exports = {
             console.log('HELP')
             return embed.R6_help()
         }
+        else{
+            console.log('Not Found')
+            return embed.R6_Not_Found()
+        }
     },
 
     filterArray: function (clearArray) {
