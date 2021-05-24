@@ -71,7 +71,7 @@ module.exports = {
         record.RANK_killMatch = newTracker[43];
         record.RANK_rank = newTracker[51];
         record.RANK_mmr = String(newTracker[52]);
-        record.RANK_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[51])}&champ=0`;
+        record.RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${this.RankImage(newTracker[51])}&champ=0`;
         //casual [32]-[41]
         record.CASUAL_timePlayed = newTracker[32];
         record.CASUAL_win_percent = newTracker[38];
@@ -83,11 +83,11 @@ module.exports = {
         record.CASUAL_killMatch = newTracker[40];
         record.CASUAL_rank = newTracker[62];
         record.CASUAL_mmr = String(newTracker[64]);
-        record.CASUAL_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[62])}&champ=0`;
+        record.CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${this.RankImage(newTracker[62])}&champ=0`;
         //casual no RANK 
         record.CASUAL_NO_RANK_rank = newTracker[50];
         record.CASUAL_NO_RANK_mmr = String(newTracker[52]);
-        record.CASUAL_NO_RANK_rank_img = `https://tabstats.com/images/r6/ranks/?rank=${this.RankImage(newTracker[50])}&champ=0`;
+        record.CASUAL_NO_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${this.RankImage(newTracker[50])}&champ=0`;
         //general [0]-[11]
         record.GENERAL_timePlayed = newTracker[7];
         record.GENERAL_win_percent = newTracker[6];
