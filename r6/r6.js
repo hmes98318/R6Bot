@@ -102,74 +102,28 @@ module.exports = {
     },
 
     RankImage: function (Img) {
-        switch (String(Img)) {
-            case 'COPPER V':
-                return '1'
 
-            case 'COPPER IV':
-                return '2'
-
-            case 'COPPER III':
-                return '3'
-
-            case 'COPPER II':
-                return '4'
-
-            case 'COPPER I':
-                return '5'
-
-            case 'BRONZE III':
-                return '6'
-
-            case 'BRONZE II':
-                return '7'
-
-            case 'BRONZE I':
-                return '8'
-
-            case 'SILVER IV':
-                return '9'
-
-            case 'SILVER III':
-                return '10'
-
-            case 'SILVER II':
-                return '11'
-
-            case 'SILVER I':
-                return '12'
-
-            case 'GOLD IV':
-                return '13'
-
-            case 'GOLD III':
-                return '14'
-
-            case 'GOLD II':
-                return '15'
-
-            case 'GOLD I':
-                return '16'
-
-            case 'PLATINUM III':
-                return '17'
-
-            case 'PLATINUM II':
-                return '18'
-
-            case 'PLATINUM I':
-                return '19'
-
-            case 'DIAMOND':
-                return '20'
-
-            case 'CHAMPIONS':
-                return '21'
-
-            case 'UNRANKED':
-                return '22'
-
-        }
+        if (String(Img) == 'COPPER V') return '1';
+        else if (String(Img) == 'COPPER IV') return '2';
+        else if (String(Img) == 'COPPER III') return '3';
+        else if (String(Img) == 'COPPER II') return '4';
+        else if (String(Img) == 'COPPER I') return '5';
+        else if (String(Img) == 'BRONZE III') return '6';
+        else if (String(Img) == 'BRONZE II') return '7';
+        else if (String(Img) == 'BRONZE I') return '8';
+        else if (String(Img) == 'SILVER IV') return '9';
+        else if (String(Img) == 'SILVER III') return '10';
+        else if (String(Img) == 'SILVER II') return '11';
+        else if (String(Img) == 'SILVER I') return '12';
+        else if (String(Img) == 'GOLD IV') return '13';
+        else if (String(Img) == 'GOLD III') return '14';
+        else if (String(Img) == 'GOLD II') return '15';
+        else if (String(Img) == 'GOLD I') return '16';
+        else if (String(Img) == 'PLATINUM III') return '17';
+        else if (String(Img) == 'PLATINUM II') return '18';
+        else if (String(Img) == 'PLATINUM I') return '19';
+        else if (String(Img) == 'DIAMOND') return '20';
+        else if (String(Img) == 'CHAMPIONS') return '21';
+        else return '22';
     }
-
 }
