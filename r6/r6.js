@@ -71,7 +71,7 @@ module.exports = {
         record.RANK_killMatch = newTracker[43];
         record.RANK_rank = newTracker[51];
         record.RANK_mmr = String(newTracker[52]);
-        record.RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${this.RankImage(newTracker[51])}&champ=0`;
+        record.RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(newTracker[51])}&champ=0`;
         //casual [32]-[41]
         record.CASUAL_timePlayed = newTracker[32];
         record.CASUAL_win_percent = newTracker[38];
@@ -83,11 +83,11 @@ module.exports = {
         record.CASUAL_killMatch = newTracker[40];
         record.CASUAL_rank = newTracker[62];
         record.CASUAL_mmr = String(newTracker[64]);
-        record.CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${this.RankImage(newTracker[62])}&champ=0`;
+        record.CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(newTracker[62])}&champ=0`;
         //casual no RANK 
         record.CASUAL_NO_RANK_rank = newTracker[50];
         record.CASUAL_NO_RANK_mmr = String(newTracker[52]);
-        record.CASUAL_NO_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${this.RankImage(newTracker[50])}&champ=0`;
+        record.CASUAL_NO_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(newTracker[50])}&champ=0`;
         //general [0]-[11]
         record.GENERAL_timePlayed = newTracker[7];
         record.GENERAL_win_percent = newTracker[6];
@@ -100,30 +100,32 @@ module.exports = {
         record.GENERAL_meleeKills = newTracker[10];
         record.GENERAL_blindKills = newTracker[11];
     },
+}
 
-    RankImage: function (Img) {
 
-        if (String(Img) == 'COPPER V') return '1';
-        else if (String(Img) == 'COPPER IV') return '2';
-        else if (String(Img) == 'COPPER III') return '3';
-        else if (String(Img) == 'COPPER II') return '4';
-        else if (String(Img) == 'COPPER I') return '5';
-        else if (String(Img) == 'BRONZE III') return '6';
-        else if (String(Img) == 'BRONZE II') return '7';
-        else if (String(Img) == 'BRONZE I') return '8';
-        else if (String(Img) == 'SILVER IV') return '9';
-        else if (String(Img) == 'SILVER III') return '10';
-        else if (String(Img) == 'SILVER II') return '11';
-        else if (String(Img) == 'SILVER I') return '12';
-        else if (String(Img) == 'GOLD IV') return '13';
-        else if (String(Img) == 'GOLD III') return '14';
-        else if (String(Img) == 'GOLD II') return '15';
-        else if (String(Img) == 'GOLD I') return '16';
-        else if (String(Img) == 'PLATINUM III') return '17';
-        else if (String(Img) == 'PLATINUM II') return '18';
-        else if (String(Img) == 'PLATINUM I') return '19';
-        else if (String(Img) == 'DIAMOND') return '20';
-        else if (String(Img) == 'CHAMPIONS') return '21';
-        else return '22';
-    }
+
+function RankImage(Img) {
+
+    if (String(Img) == 'COPPER V') return '1';
+    else if (String(Img) == 'COPPER IV') return '2';
+    else if (String(Img) == 'COPPER III') return '3';
+    else if (String(Img) == 'COPPER II') return '4';
+    else if (String(Img) == 'COPPER I') return '5';
+    else if (String(Img) == 'BRONZE III') return '6';
+    else if (String(Img) == 'BRONZE II') return '7';
+    else if (String(Img) == 'BRONZE I') return '8';
+    else if (String(Img) == 'SILVER IV') return '9';
+    else if (String(Img) == 'SILVER III') return '10';
+    else if (String(Img) == 'SILVER II') return '11';
+    else if (String(Img) == 'SILVER I') return '12';
+    else if (String(Img) == 'GOLD IV') return '13';
+    else if (String(Img) == 'GOLD III') return '14';
+    else if (String(Img) == 'GOLD II') return '15';
+    else if (String(Img) == 'GOLD I') return '16';
+    else if (String(Img) == 'PLATINUM III') return '17';
+    else if (String(Img) == 'PLATINUM II') return '18';
+    else if (String(Img) == 'PLATINUM I') return '19';
+    else if (String(Img) == 'DIAMOND') return '20';
+    else if (String(Img) == 'CHAMPIONS') return '21';
+    else return '22';
 }
