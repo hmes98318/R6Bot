@@ -7,18 +7,44 @@ var record = require('./r6_record');
 
 module.exports = {
     R6_type: function (type, r6name, newTracker) {
+        /* 
+        for (i = 0; i <= newTracker.length; ++i) {
+            console.log(i + ' = [' + newTracker[i] + ']')
+        }*/
+        // [] 66-62-54
+        /*  66=>normal
+         *  62=>有打過RANK賽季更新重置有隱分格式會不同
+         *  54=>從沒打過RANK的人casual error
+         */
         if (newTracker[42] !== undefined && newTracker[44] !== undefined) { //檢查搜尋到的玩家是否正確(存在)
 
-            if (type === 'RANK' && r6name !== undefined) { //season RANK [42]-[53]
-                console.log('RANK')
-                //header, user, url, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
-                return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.RANK_win_percent, record.RANK_win, record.RANK_loss, record.RANK_kd, record.RANK_kill, record.RANK_death, record.RANK_killMatch, record.RANK_rank, record.RANK_mmr, record.RANK_rank_img)
+            if (type === 'RANK' && r6name !== undefined) {
+                console.log('RANK')//season RANK [42]-[53]
+
+                if (newTracker.length == 54) {
+                    console.log('54')
+                    //has been played rank last season,this season hide rank
+                    return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDE_RANK_win_percent, record.HIDE_RANK_win, record.HIDE_RANK_loss, record.HIDE_RANK_kd, record.HIDE_RANK_kill, record.HIDE_RANK_death, record.HIDE_RANK_killMatch, record.HIDE_RANK_rank, record.HIDE_RANK_mmr, record.HIDE_RANK_rank_img)
+                }
+                else if (newTracker.length == 62) {
+                    console.log('62')
+                    return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDE_RANK_win_percent, record.HIDE_RANK_win, record.HIDE_RANK_loss, record.HIDE_RANK_kd, record.HIDE_RANK_kill, record.HIDE_RANK_death, record.HIDE_RANK_killMatch, record.HIDE_RANK_rank, record.HIDE_RANK_mmr, record.HIDE_RANK_rank_img)
+                }
+                else {
+                    console.log('66')
+                    //header, user, url, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
+                    return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.RANK_win_percent, record.RANK_win, record.RANK_loss, record.RANK_kd, record.RANK_kill, record.RANK_death, record.RANK_killMatch, record.RANK_rank, record.RANK_mmr, record.RANK_rank_img)
+                }
             }
-            else if (type === 'CASUAL' && r6name !== undefined) { //casual [32]-[41]
-                console.log('CASUAL')
-                if (record.CASUAL_rank == undefined) {
+            else if (type === 'CASUAL' && r6name !== undefined) {
+                console.log('CASUAL')//casual [32]-[41]
+
+                if (newTracker.length == 54) {
                     //casual havent played RANK
                     return embed.R6_Casual_Embed(record.header, record.user, record.url, record.CASUAL_timePlayed, record.CASUAL_win_percent, record.CASUAL_win, record.CASUAL_loss, record.CASUAL_kd, record.CASUAL_kill, record.CASUAL_death, record.CASUAL_killMatch, record.CASUAL_NO_RANK_rank, record.CASUAL_NO_RANK_mmr, record.CASUAL_NO_RANK_rank_img)
+                }
+                else if (newTracker.length == 62) {
+                    return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDE_CASUAL_timePlayed, record.HIDE_CASUAL_win_percent, record.HIDE_CASUAL_win, record.HIDE_CASUAL_loss, record.HIDE_CASUAL_kd, record.HIDE_CASUAL_kill, record.HIDE_CASUAL_death, record.HIDE_CASUAL_killMatch, record.HIDE_CASUAL_rank, record.HIDE_CASUAL_mmr, record.HIDE_CASUAL_rank_img)
                 }
                 else {
                     //header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
@@ -99,6 +125,29 @@ module.exports = {
         record.GENERAL_handShots = newTracker[3];
         record.GENERAL_meleeKills = newTracker[10];
         record.GENERAL_blindKills = newTracker[11];
+        //played rank, new season hide rank
+        record.HIDE_CASUAL_timePlayed = newTracker[32];
+        record.HIDE_CASUAL_win_percent = newTracker[54];
+        record.HIDE_CASUAL_win = newTracker[55];
+        record.HIDE_CASUAL_loss = newTracker[56];
+        record.HIDE_CASUAL_kd = newTracker[50];
+        record.HIDE_CASUAL_kill = newTracker[52];
+        record.HIDE_CASUAL_death = newTracker[53];
+        record.HIDE_CASUAL_killMatch = newTracker[51];
+        record.HIDE_CASUAL_rank = newTracker[58];
+        record.HIDE_CASUAL_mmr = String(newTracker[60]);
+        record.HIDE_CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(newTracker[58])}&champ=0`;
+        //-----
+        record.HIDE_RANK_win_percent = newTracker[42];
+        record.HIDE_RANK_win = newTracker[43];
+        record.HIDE_RANK_loss = newTracker[44];
+        record.HIDE_RANK_kd = newTracker[45];
+        record.HIDE_RANK_kill = newTracker[45];
+        record.HIDE_RANK_death = newTracker[45];
+        record.HIDE_RANK_killMatch = newTracker[45];
+        record.HIDE_RANK_rank = newTracker[45];
+        record.HIDE_RANK_mmr = String(newTracker[48]);
+        record.HIDE_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(newTracker[45])}&champ=0`;
     },
 }
 
