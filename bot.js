@@ -41,7 +41,7 @@ function R6_request(r6name, type, id) {
 
 
     let tracker = [];
-    let newTracker = [];
+    let racker = [];
     let url = `https://r6.tracker.network/profile/pc/${r6name}`;
 
 
@@ -55,7 +55,7 @@ function R6_request(r6name, type, id) {
             })
 
             for (i = 0; i < tracker.length; ++i) {
-                newTracker[i] = TRN.filterArray(String(tracker[i]).split(','))
+                tracker[i] = TRN.filterArray(String(tracker[i]).split(','))
             }
 
             let imgurl = $('img').map(function () {
@@ -64,11 +64,11 @@ function R6_request(r6name, type, id) {
             var header = imgurl.toArray()[0];
             //var rank_img = imgurl.toArray()[4];
 
-            TRN.R6_record(header, r6name, url, newTracker);
+            TRN.R6_record(header, r6name, url, tracker);
         }
         else {
             console.log("擷取錯誤：" + error);
         }
-        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, newTracker))
+        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, tracker))
     });
 }
