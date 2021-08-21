@@ -41,11 +41,14 @@ function R6_request(r6name, type, id) {
 
 
     let tracker = [];
-    let racker = [];
-    let url = `https://r6.tracker.network/profile/pc/${r6name}`;
+    let operators = [];
+    let header;
+
+    let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
+    let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
 
 
-    request(url, function (error, response, body) {
+    request(url_profile, function (error, response, body) {
         if (!error) {
             //console.log(body)
             var $ = cheerio.load(body);
@@ -53,22 +56,54 @@ function R6_request(r6name, type, id) {
             $('#profile .trn-defstat__value').each(function (i, elem) {
                 tracker.push($(this).text().split('\n'))
             })
-
             for (i = 0; i < tracker.length; ++i) {
                 tracker[i] = TRN.filterArray(String(tracker[i]).split(','))
-            }
+            } //console.log(tracker);
 
             let imgurl = $('img').map(function () {
                 return $(this).attr('src')
             });//console.log(imgurl.toArray());
-            var header = imgurl.toArray()[0];
+            header = imgurl.toArray()[0];
             //var rank_img = imgurl.toArray()[4];
-
-            TRN.R6_record(header, r6name, url, tracker);
+            //TRN.R6_record(header, r6name, url, tracker, ope);
         }
         else {
             console.log("擷取錯誤：" + error);
         }
-        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, tracker))
+        //return tracker
     });
+
+
+    request(url_operators, function (error, response, body) {
+        if (!error) {
+            //console.log(body)
+            var $ = cheerio.load(body);
+
+            $('#profile .trn-table__row').each(function (i, elem) {
+                operators.push($(this).text().split('\n'))
+            })
+            //console.log(operators)
+            /*
+            for (i = 0; i < operators.length; ++i) {
+                operators[i] = TRN.filterArray(String(operators[i]).split(','))
+            }
+            */
+            //TRN.R6_record(header, r6name, url, tracker);
+        }
+        else {
+            console.log("擷取錯誤：" + error);
+        }
+        //return operators
+    });
+
+
+    setTimeout(() => {
+/*
+        for (i = 0; i < operators.length; ++i) {
+            console.log(operators[i][0])
+        }*/
+        //console.log(operators[1][0])
+        TRN.R6_record(header, r6name, url_profile, tracker, operators);
+        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, tracker, operators))
+    }, 2000);
 }
