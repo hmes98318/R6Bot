@@ -1,22 +1,30 @@
 const Discord = require('discord.js');
-var request = require("request");
-var cheerio = require("cheerio");
 var embed = require('./embed.js');
 var record = require('./r6_record');
+var base = require('../file/base.json')
 
 
 module.exports = {
-    R6_type: function (type, r6name, tracker) {
-        
+    R6_type: function (type, r6name, tracker, operators) {
+
+        console.log('type--' + type)
+        let operators_check = checking(type);
+        console.log('////' + operators_check)
+        /*
         for (i = 0; i <= tracker.length; ++i) {
             console.log(i + ' = [' + tracker[i] + ']')
-        }
+        }*/
+        
+        
         // [] 66-62-54
         /*  66=>normal
          *  62=>有打過RANK賽季更新重置有隱分格式會不同
          *  54=>從沒打過RANK的人casual error
          */
+        
+        
         if (tracker[42] !== undefined && tracker[44] !== undefined) { //檢查搜尋到的玩家是否正確(存在)
+            console.log('done')
 
             if (type === 'RANK' && r6name !== undefined) {
                 console.log('RANK')//season RANK [42]-[53]
@@ -57,14 +65,34 @@ module.exports = {
                 //header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills 
                 return embed.R6_General_Embed(record.header, record.user, record.url, record.GENERAL_timePlayed, record.GENERAL_win_percent, record.GENERAL_win, record.GENERAL_loss, record.GENERAL_kd, record.GENERAL_death, record.GENERAL_handShot, record.GENERAL_handShots, record.GENERAL_meleeKills, record.GENERAL_blindKills)
             }
-        }
-        else if (r6name === 'HELP' || r6name === 'help') {//不是則檢測是否為 +r6 help
-            console.log('HELP')
-            return embed.R6_help()
-        }
-        else {
-            console.log('Not Found')
-            return embed.R6_Not_Found()
+
+            else if (r6name === 'HELP' || r6name === 'help') {//不是則檢測是否為 +r6 help
+                console.log('HELP')
+                return embed.R6_help()
+            }
+            else if (operators_check === true) {
+                console.log('OPERATORS')
+
+                for (var i = 1; i < operators.length; ++i) {
+                    console.log('--' + operators[i])
+                    if (type == operators[i][3]) {
+
+                        for (j = 0; j < 20; ++j) {
+                            console.log(`[${j}] = ${operators[i][j]}`)
+                        }
+                        var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
+                        //header, user, url, operator, timePlayed, Kills, kd, Wins, Losses, Win_percent, Headshot, DBNOs, XP, meleeKills, operatorStat
+                        return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][5], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][16])
+                    }
+                }
+                
+                console.log('-------- operators --------' + operators[1][0])
+                return embed.R6_Not_Found()//operators[1][0]
+            }
+            else {
+                console.log('Not Found')
+                return embed.R6_Not_Found()
+            }
         }
     },
 
@@ -178,4 +206,13 @@ function RankImage(Img) {
     else if (String(Img) == 'DIAMOND') return '20';
     else if (String(Img) == 'CHAMPION') return '21';
     else return '22';
+}
+
+
+function checking(type) {
+    for (var i = 0; i < base.operators.length; ++i) {
+        if (type == base.operators[i]) {
+            return true
+        }
+    } return false
 }
