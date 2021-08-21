@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 var embed = require('./embed.js');
 var record = require('./r6_record');
-var base = require('../file/base.json')
+var base = require('./base.json')
 
 
 module.exports = {
