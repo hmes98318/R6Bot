@@ -14,15 +14,15 @@ module.exports = {
         for (i = 0; i <= tracker.length; ++i) {
             console.log(i + ' = [' + tracker[i] + ']')
         }*/
-        
-        
+
+
         // [] 66-62-54
         /*  66=>normal
          *  62=>有打過RANK賽季更新重置有隱分格式會不同
          *  54=>從沒打過RANK的人casual error
          */
-        
-        
+
+
         if (tracker[42] !== undefined && tracker[44] !== undefined) { //檢查搜尋到的玩家是否正確(存在)
             console.log('done')
 
@@ -74,18 +74,25 @@ module.exports = {
                 console.log('OPERATORS')
 
                 for (var i = 1; i < operators.length; ++i) {
-                    console.log('--' + operators[i])
+                    console.log('--' + operators[i])/*
+                    for (j = 0; j < 20; ++j) {
+                        console.log(`[${j}] = ${operators[i][j]}`)
+                    } */
+                    
+                    var type_url = type; // 'NØKK'無法直接套用在網址
+                    if (type === 'NAKK')  type = 'NØKK'; 
+
                     if (type == operators[i][3]) {
 
                         for (j = 0; j < 20; ++j) {
                             console.log(`[${j}] = ${operators[i][j]}`)
                         }
-                        var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
+                        var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type_url.toLowerCase()}.png`
                         //header, user, url, operator, timePlayed, Kills, kd, Wins, Losses, Win_percent, Headshot, DBNOs, XP, meleeKills, operatorStat
                         return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][5], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][16])
                     }
                 }
-                
+
                 console.log('-------- operators --------' + operators[1][0])
                 return embed.R6_Not_Found()//operators[1][0]
             }
