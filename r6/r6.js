@@ -74,20 +74,19 @@ module.exports = {
                 console.log('OPERATORS')
 
                 for (var i = 1; i < operators.length; ++i) {
-                    console.log('--' + operators[i])/*
-                    for (j = 0; j < 20; ++j) {
-                        console.log(`[${j}] = ${operators[i][j]}`)
-                    } */
-                    
-                    var type_url = type; // 'NØKK'無法直接套用在網址
-                    if (type === 'NAKK')  type = 'NØKK'; 
+                    console.log('--' + operators[i])
+
+                    type = (type == 'NAKK') ? 'NØKK' : type // 'NØKK'無法直接套用在網址
 
                     if (type == operators[i][3]) {
+                        let type_url = (type == 'NØKK') ? 'NAKK' : type
 
+                        console.log(type_url)
                         for (j = 0; j < 20; ++j) {
                             console.log(`[${j}] = ${operators[i][j]}`)
                         }
                         var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type_url.toLowerCase()}.png`
+                        console.log(header)
                         //header, user, url, operator, timePlayed, Kills, kd, Wins, Losses, Win_percent, Headshot, DBNOs, XP, meleeKills, operatorStat
                         return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][5], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][16])
                     }
