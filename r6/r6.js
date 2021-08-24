@@ -15,24 +15,21 @@ module.exports = {
             console.log(i + ' = [' + tracker[i] + ']')
         }*/
 
-
-        // [] 66-62-54
-        /*  66=>normal
-         *  62=>有打過RANK賽季更新重置有隱分格式會不同
-         *  54=>從沒打過RANK的人casual error
+        // [] 54-62-66
+        /*  54=> 間隔一個賽季以上或從沒打過RANK的人
+         *  62=> 有打過RANK賽季更新重置有隱分格式會不同
+         *  66=> normal rank+casual 
          */
-
-
         if (tracker[42] !== undefined && tracker[44] !== undefined) { //檢查搜尋到的玩家是否正確(存在)
             console.log('done')
 
             if (type === 'RANK' && r6name !== undefined) {
-                console.log('RANK')//season RANK [42]-[53]
+                console.log('RANK')//season RANK
 
                 if (tracker.length == 54) {
                     console.log('54')
-                    //has been played rank last season,this season hide rank
-                    return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDE_RANK_win_percent, record.HIDE_RANK_win, record.HIDE_RANK_loss, record.HIDE_RANK_kd, record.HIDE_RANK_kill, record.HIDE_RANK_death, record.HIDE_RANK_killMatch, record.HIDE_RANK_rank, record.HIDE_RANK_mmr, record.HIDE_RANK_rank_img)
+                    
+                    return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HAVENT_PLAYED_RANK_value , record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_img)
                 }
                 else if (tracker.length == 62) {
                     console.log('62')
@@ -45,7 +42,7 @@ module.exports = {
                 }
             }
             else if (type === 'CASUAL' && r6name !== undefined) {
-                console.log('CASUAL')//casual [32]-[41]
+                console.log('CASUAL')//casual
 
                 if (tracker.length == 54) {
                     //casual havent played RANK
@@ -60,7 +57,7 @@ module.exports = {
                 }
             }
             else if (type === undefined) {
-                console.log('GENERAL')//general [0]-[11]
+                console.log('GENERAL')//general
 
                 //header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills 
                 return embed.R6_General_Embed(record.header, record.user, record.url, record.GENERAL_timePlayed, record.GENERAL_win_percent, record.GENERAL_win, record.GENERAL_loss, record.GENERAL_kd, record.GENERAL_death, record.GENERAL_handShot, record.GENERAL_handShots, record.GENERAL_meleeKills, record.GENERAL_blindKills)
@@ -75,22 +72,18 @@ module.exports = {
 
                 for (var i = 1; i < operators.length; ++i) {
                     console.log('--' + operators[i])
-
-                    type = (type == 'NAKK') ? 'NØKK' : type // 'NØKK'無法直接套用在網址
-
                     if (type == operators[i][3]) {
-                        let type_url = (type == 'NØKK') ? 'NAKK' : type
-
-                        console.log(type_url)
+                        console.log('++' + operators[i])
                         for (j = 0; j < 20; ++j) {
                             console.log(`[${j}] = ${operators[i][j]}`)
                         }
-                        var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type_url.toLowerCase()}.png`
-                        console.log(header)
+                        //console.log('++++++' + operators[i])
+                        var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
                         //header, user, url, operator, timePlayed, Kills, kd, Wins, Losses, Win_percent, Headshot, DBNOs, XP, meleeKills, operatorStat
                         return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][5], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][16])
                     }
                 }
+
 
                 console.log('-------- operators --------' + operators[1][0])
                 return embed.R6_Not_Found()//operators[1][0]
@@ -183,6 +176,9 @@ module.exports = {
         record.HIDE_RANK_rank = tracker[45];
         record.HIDE_RANK_mmr = String(tracker[48]);
         record.HIDE_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[45])}&champ=0`;
+    
+        record.HAVENT_PLAYED_RANK_value = tracker[53]; // =0
+        record.HAVENT_PLAYED_RANK_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[53])}&champ=0`;
     },
 }
 
