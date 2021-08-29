@@ -6,18 +6,17 @@ var base = require('./base.json')
 module.exports = {
     R6_type: function (type, r6name, tracker, operators) {
 
-        console.log('type--' + type)
+        console.log('type : ' + type)
         let operators_check = checking(type);
-        console.log('////' + operators_check)
+        console.log('operators : ' + operators_check)
         /*
         for (i = 0; i <= tracker.length; ++i) {
             console.log(i + ' = [' + tracker[i] + ']')
-        }
-        */
-        // [] 54-62-66
-        /*  54>[]=> 間隔一個賽季以上或從沒打過RANK的人
-         *  62>71=> 有打過RANK賽季更新重置有隱分格式會不同
-         *  66>75=> normal rank+casual 
+        }*/
+
+        /* [] 71-75
+         *  71=> 間隔一個賽季以上或從沒打過RANK的人
+         *  75=> normal rank & casual 
          */
         if (tracker[42] !== undefined && tracker[44] !== undefined) { //檢查搜尋到的玩家是否正確(存在)
             console.log('done')
@@ -25,12 +24,7 @@ module.exports = {
             if (type === 'RANK' && r6name !== undefined) {
                 console.log('RANK')//season RANK
 
-                if (tracker.length == 54) {
-                    console.log('54')
-
-                    return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_value, record.HAVENT_PLAYED_RANK_img)
-                }
-                else if (tracker.length == 71) {
+                if (tracker.length == 71) {
                     console.log('71')
                     return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDE_RANK_win_percent, record.HIDE_RANK_win, record.HIDE_RANK_loss, record.HIDE_RANK_kd, record.HIDE_RANK_kill, record.HIDE_RANK_death, record.HIDE_RANK_killMatch, record.HIDE_RANK_rank, record.HIDE_RANK_mmr, record.HIDE_RANK_rank_img)
                 }
@@ -43,12 +37,7 @@ module.exports = {
             else if (type === 'CASUAL' && r6name !== undefined) {
                 console.log('CASUAL')//casual
 
-                if (tracker.length == 54) {
-                    console.log('54')
-                    //casual havent played RANK
-                    return embed.R6_Casual_Embed(record.header, record.user, record.url, record.CASUAL_timePlayed, record.CASUAL_win_percent, record.CASUAL_win, record.CASUAL_loss, record.CASUAL_kd, record.CASUAL_kill, record.CASUAL_death, record.CASUAL_killMatch, record.CASUAL_NO_RANK_rank, record.CASUAL_NO_RANK_mmr, record.CASUAL_NO_RANK_rank_img)
-                }
-                else if (tracker.length == 71) {
+                if (tracker.length == 71) {
                     console.log('71')
                     return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDE_CASUAL_timePlayed, record.HIDE_CASUAL_win_percent, record.HIDE_CASUAL_win, record.HIDE_CASUAL_loss, record.HIDE_CASUAL_kd, record.HIDE_CASUAL_kill, record.HIDE_CASUAL_death, record.HIDE_CASUAL_killMatch, record.HIDE_CASUAL_rank, record.HIDE_CASUAL_mmr, record.HIDE_CASUAL_rank_img)
                 }
@@ -116,7 +105,7 @@ module.exports = {
         record.header = header;
         record.user = r6name;
         record.url = url;
-        //season RANK [42]-[53]
+        //season RANK 
         record.RANK_win_percent = tracker[55];
         record.RANK_win = tracker[56];
         record.RANK_loss = tracker[57];
@@ -127,7 +116,7 @@ module.exports = {
         record.RANK_rank = tracker[59];
         record.RANK_mmr = String(tracker[61]);
         record.RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[59])}&champ=0`;
-        //casual [32]-[41]
+        //casual 
         record.CASUAL_timePlayed = tracker[41];
         record.CASUAL_win_percent = tracker[67];
         record.CASUAL_win = tracker[68];
@@ -143,7 +132,7 @@ module.exports = {
         record.CASUAL_NO_RANK_rank = tracker[50];
         record.CASUAL_NO_RANK_mmr = String(tracker[52]);
         record.CASUAL_NO_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[50])}&champ=0`;
-        //general [0]-[11]
+        //general 
         record.GENERAL_timePlayed = tracker[16];
         record.GENERAL_win_percent = tracker[15];
         record.GENERAL_win = tracker[13];
@@ -177,9 +166,6 @@ module.exports = {
         record.HIDE_RANK_rank = tracker[55];
         record.HIDE_RANK_mmr = String(tracker[57]);
         record.HIDE_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[55])}&champ=0`;
-
-        record.HAVENT_PLAYED_RANK_value = tracker[53]; // =0
-        record.HAVENT_PLAYED_RANK_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[53])}&champ=0`;
     },
 }
 
