@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 var embed = require('./embed.js');
 var record = require('./r6_record');
 var base = require('./base.json')
