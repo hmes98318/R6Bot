@@ -16,7 +16,7 @@ module.exports = {
                 { name: 'Ranked', value: `**${rank}**`, inline: true },
                 { name: 'MMR', value: `**${mmr}**`, inline: true },
                 { name: '\u200B', value: '\u200B' },
-                { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+                { name: 'Win/Loss', value: `**${win_percent}%**\nWin **${win}**\nLoss **${loss}**`, inline: true },
                 { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
             )
@@ -40,7 +40,7 @@ module.exports = {
                 { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
 
                 { name: '\u200B', value: '\u200B' },
-                { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
+                { name: 'Win/Loss', value: `**${win_percent}%**\nWin **${win}**\nLoss **${loss}**`, inline: true },
                 { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
             )
