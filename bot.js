@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-var request = require("request");
-var cheerio = require("cheerio");
-var auth = require('./auth.json');
-var TRN = require('./r6/r6');
+let request = require("request");
+let cheerio = require("cheerio");
+let auth = require('./auth.json');
+let TRN = require('./r6/r6');
 
 
 const bot = new Discord.Client();
@@ -23,24 +23,81 @@ bot.on('message', message => {
     var r6_name = message.content.split(' ')
 
 
-    switch (args[0]) {
-
-        case '+R6':
+    if(args[0] == '+R6') {
             R6_request(r6_name[1], args[2], message.channel.id)
-            break;
-
     }
-
 });
 
 
 
 
+function trackerProfile(profile, url_profile) {
+    return new Promise(function (resolve, reject) {
+        request(url_profile, function (error, response, body) {
+            if (!error) {
+                let $ = cheerio.load(body);
 
-function R6_request(r6name, type, id) {
+                $('#profile .trn-defstat__value').each(function (i, elem) {
+                    profile.push($(this).text().split('\n'))
+                })
+                for (i = 0; i < profile.length; ++i) {
+                    profile[i] = TRN.filterArray(String(profile[i]).split(','))
+                }
+                resolve(profile);
+            }
+            else {
+                reject(error);
+                console.log("擷取錯誤：" + error);
+            }
+        });
+    });
+}
 
 
-    let tracker = [];
+function trackerHeader(header, url_profile) {
+    return new Promise(function (resolve, reject) {
+        request(url_profile, function (error, response, body) {
+            if (!error) {
+                let $ = cheerio.load(body);
+
+                let imgurl = $('img').map(function () {
+                    return $(this).attr('src')
+                });//console.log(imgurl.toArray());
+                header = imgurl.toArray()[0];
+                resolve(header)
+            }
+            else {
+                reject(error);
+                console.log("擷取錯誤：" + error);
+            }
+        })
+    })
+}
+
+
+function trackerOperators(operators, url_operators) {
+    return new Promise(function (resolve, reject) {
+        request(url_operators, function (error, response, body) {
+            if (!error) {
+                let $ = cheerio.load(body);
+
+                $('#profile .trn-table__row').each(function (i, elem) {
+                    operators.push($(this).text().split('\n'))
+                })
+                resolve(operators);
+            }
+            else {
+                reject(error);
+                console.log("擷取錯誤：" + error);
+            }
+        });
+    });
+}
+
+
+async function R6_request(r6name, type, id) {
+
+    let profile = [];
     let operators = [];
     let header;
 
@@ -48,62 +105,16 @@ function R6_request(r6name, type, id) {
     let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
 
 
-    request(url_profile, function (error, response, body) {
-        if (!error) {
-            //console.log(body)
-            var $ = cheerio.load(body);
-
-            $('#profile .trn-defstat__value').each(function (i, elem) {
-                tracker.push($(this).text().split('\n'))
-            })
-            for (i = 0; i < tracker.length; ++i) {
-                tracker[i] = TRN.filterArray(String(tracker[i]).split(','))
-            } //console.log(tracker);
-
-            let imgurl = $('img').map(function () {
-                return $(this).attr('src')
-            });//console.log(imgurl.toArray());
-            header = imgurl.toArray()[0];
-            //var rank_img = imgurl.toArray()[4];
-            //TRN.R6_record(header, r6name, url, tracker, ope);
-        }
-        else {
-            console.log("擷取錯誤：" + error);
-        }
-        //return tracker
-    });
-
-
-    request(url_operators, function (error, response, body) {
-        if (!error) {
-            //console.log(body)
-            var $ = cheerio.load(body);
-
-            $('#profile .trn-table__row').each(function (i, elem) {
-                operators.push($(this).text().split('\n'))
-            })
-            //console.log(operators)
-            /*
-            for (i = 0; i < operators.length; ++i) {
-                operators[i] = TRN.filterArray(String(operators[i]).split(','))
-            }
-            */
-            //TRN.R6_record(header, r6name, url, tracker);
-        }
-        else {
-            console.log("擷取錯誤：" + error);
-        }
-        //return operators
-    });
-
-
-    setTimeout(() => {
-/*
-        for (i = 0; i < operators.length; ++i) {
-            console.log(operators[i][0])
-        }*/
-        //console.log(operators[1][0])
-        TRN.R6_record(header, r6name, url_profile, tracker, operators);
-        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, tracker, operators))
-    }, 2000);
+    try {
+        profile = await trackerProfile(profile, url_profile)
+        operators = await trackerOperators(operators, url_operators)
+        header = await trackerHeader(header, url_profile)
+        console.log(profile)
+        console.log(operators)
+        TRN.R6_record(header, r6name, url_profile, profile, operators);
+        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, profile, operators))
+    }
+    catch (message) {
+        console.log(message)
+    }
 }
