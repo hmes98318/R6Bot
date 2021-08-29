@@ -6,7 +6,7 @@ use website : https://r6.tracker.network/
 npm install discord.js request cheerio  
 ```
 
-node.js version 12 at least
+node.js version 12 at least  
 discord.js version 12  
 
 discord.js 12 + request + cheerio  
