@@ -7,13 +7,5 @@ node.js version 12 at least
 discord.js version 12  
 
 ```
-npm install discord.js@12.5.1  
-```
-
-```
-npm install request  
-```
-
-```
-npm install cheerio  
+npm install discord.js@12.5.1 request cheerio  
 ```
