@@ -79,11 +79,10 @@ module.exports = {
                         }
                         //console.log('++++++' + operators[i])
                         var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
-                        //header, user, url, operator, timePlayed, Kills, kd, Wins, Losses, Win_percent, Headshot, DBNOs, XP, meleeKills, operatorStat
-                        return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][5], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][16])
+                        //header, user, url,Operator ,Time Played,Kills,Deaths,K/D,Wins,Losses,Win %,Headshot %,DBNOs,XP,Melee Kills,Operator Stat,
+                        return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][15], operators[i][16], operators[i][18])
                     }
                 }
-
 
                 console.log('-------- operators --------' + operators[1][0])
                 return embed.R6_Not_Found()//operators[1][0]
