@@ -6,8 +6,7 @@ function Record(header, user, url,
   CASUAL_NO_RANK_rank, CASUAL_NO_RANK_mmr, CASUAL_NO_RANK_rank_img,
   GENERAL_timePlayed, GENERAL_win_percent, GENERAL_win, GENERAL_loss, GENERAL_kd, GENERAL_death, GENERAL_handShot, GENERAL_handShots, GENERAL_meleeKills, GENERAL_blindKills,
   HIDE_CASUAL_timePlayed, HIDE_CASUAL_win_percent, HIDE_CASUAL_win, HIDE_CASUAL_loss, HIDE_CASUAL_kd, HIDE_CASUAL_kill, HIDE_CASUAL_death, HIDE_CASUAL_killMatch, HIDE_CASUAL_rank, HIDE_CASUAL_mmr, HIDE_CASUAL_rank_img,
-  HIDE_RANK_win_percent, HIDE_RANK_win, HIDE_RANK_loss, HIDE_RANK_kd, HIDE_RANK_kill, HIDE_RANK_death, HIDE_RANK_killMatch, HIDE_RANK_rank, HIDE_RANK_mmr, HIDE_RANK_rank_img,
-  HAVENT_PLAYED_RANK_value, HAVENT_PLAYED_RANK_img) {
+  HIDE_RANK_win_percent, HIDE_RANK_win, HIDE_RANK_loss, HIDE_RANK_kd, HIDE_RANK_kill, HIDE_RANK_death, HIDE_RANK_killMatch, HIDE_RANK_rank, HIDE_RANK_mmr, HIDE_RANK_rank_img) {
 
 
   this.header = header;
@@ -79,8 +78,5 @@ function Record(header, user, url,
   this.HIDE_RANK_rank = HIDE_RANK_rank;
   this.HIDE_RANK_mmr = HIDE_RANK_mmr;
   this.HIDE_RANK_rank_img = HIDE_RANK_rank_img;
-
-  this.HAVENT_PLAYED_RANK_value = HAVENT_PLAYED_RANK_value
-  this.HAVENT_PLAYED_RANK_img = HAVENT_PLAYED_RANK_img
 }
 let record = new Record();
