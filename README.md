@@ -3,7 +3,7 @@ This is Rainbow Six Siege track record by Web Crawler
 use website : https://r6.tracker.network/  
 
 
-node.js version 12  
+node.js version 12 at least  
 discord.js version 12  
 
 ```
