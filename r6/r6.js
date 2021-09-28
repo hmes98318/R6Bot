@@ -63,6 +63,8 @@ module.exports = {
 
                 for (var i = 1; i < operators.length; ++i) {
                     console.log('--' + operators[i])
+                    if (operators[i][3] == 'NØKK'){
+                        operators[i][3] = 'NAKK';}
                     if (type == operators[i][3]) {
                         console.log('++' + operators[i])
                         for (j = 0; j < 20; ++j) {
@@ -70,8 +72,8 @@ module.exports = {
                         }
                         //console.log('++++++' + operators[i])
                         var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
-                        //header, user, url,Operator ,Time Played,Kills,Deaths,K/D,Wins,Losses,Win %,Headshot %,DBNOs,XP,Melee Kills,Operator Stat,
-                        return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][15], operators[i][16], operators[i][18])
+                                                      //header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,              Wins,           Losses,            Win %,        Headshot %,           DBNOs,               XP,      Melee Kills,   Operator Stat,
+                        return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][15], operators[i][16], operators[i][18])
                     }
                 }
 
@@ -200,6 +202,7 @@ function RankImage(Img) {
 
 function checking(type) {
     for (var i = 0; i < base.operators.length; ++i) {
+        console.log(type, '=', base.operators[i])
         if (type == base.operators[i]) {
             return true
         }
