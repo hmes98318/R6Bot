@@ -49,8 +49,7 @@ module.exports = {
 
         return trackerEmbed
     },
-
-    R6_General_Embed: function (header, user, url, timePlayed, win_percent, win, loss, kd, death, headshot, headShots, meleeKills, blindKills) {
+    R6_General_Embed: function (header, user, url,timePlayed, win_percent, win, loss, kd, death, headshot, headShots, meleeKills, blindKills) {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
@@ -72,8 +71,8 @@ module.exports = {
 
         return trackerEmbed
     },
-
-    R6_Operators_Embed: function (header, user, url, operator, timePlayed, kill, kd, win, loss, win_percent, headshot, DBNOs, XP, meleeKills, operatorStat) {
+                                  //header,user,url,Operator ,Time Played,Kills,Deaths,K/D,Wins,Losses,Win %,Headshot %,DBNOs,XP,Melee Kills,Operator Stat,
+    R6_Operators_Embed: function (header, user, url, operator, timePlayed, kill, death,kd, win, loss, win_percent, headshot, DBNOs, XP, meleeKills, operatorStat) {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
@@ -83,7 +82,7 @@ module.exports = {
             .setThumbnail(header)
             .addFields(
                 { name: 'Win%', value: `**${win_percent}**\nWin**${win}**\nLoss **${loss}**`, inline: true },
-                { name: 'K/D', value: `**${kd}**\nKills **${kill}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\nKills **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
                 { name: '\u200B', value: '\u200B' },
                 { name: 'Head Shot', value: `**${headshot}**`, inline: true },
