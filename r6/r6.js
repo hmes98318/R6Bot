@@ -53,11 +53,11 @@ module.exports = {
                 //header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills 
                 return embed.R6_General_Embed(record.header, record.user, record.url, record.GENERAL_timePlayed, record.GENERAL_win_percent, record.GENERAL_win, record.GENERAL_loss, record.GENERAL_kd, record.GENERAL_death, record.GENERAL_handShot, record.GENERAL_handShots, record.GENERAL_meleeKills, record.GENERAL_blindKills)
             }
-
+/*
             else if (r6name === 'HELP' || r6name === 'help') {//不是則檢測是否為 +r6 help
                 console.log('HELP')
                 return embed.R6_help()
-            }
+            }*/
             else if (operators_check === true) {
                 console.log('OPERATORS')
 
