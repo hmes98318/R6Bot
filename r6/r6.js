@@ -180,23 +180,34 @@ function RankImage(Img) {
     else if (String(Img) == 'COPPER III') return '3';
     else if (String(Img) == 'COPPER II') return '4';
     else if (String(Img) == 'COPPER I') return '5';
-    else if (String(Img) == 'BRONZE III') return '6';
-    else if (String(Img) == 'BRONZE II') return '7';
-    else if (String(Img) == 'BRONZE I') return '8';
-    else if (String(Img) == 'SILVER IV') return '9';
-    else if (String(Img) == 'SILVER III') return '10';
-    else if (String(Img) == 'SILVER II') return '11';
-    else if (String(Img) == 'SILVER I') return '12';
-    else if (String(Img) == 'GOLD IV') return '13';
-    else if (String(Img) == 'GOLD III') return '14';
-    else if (String(Img) == 'GOLD II') return '15';
-    else if (String(Img) == 'GOLD I') return '16';
-    else if (String(Img) == 'PLATINUM III') return '17';
-    else if (String(Img) == 'PLATINUM II') return '18';
-    else if (String(Img) == 'PLATINUM I') return '19';
-    else if (String(Img) == 'DIAMOND') return '20';
-    else if (String(Img) == 'CHAMPION') return '21';
-    else return '22';
+
+    else if (String(Img) == 'BRONZE V') return '6';
+    else if (String(Img) == 'BRONZE IV') return '7';
+    else if (String(Img) == 'BRONZE III') return '8';
+    else if (String(Img) == 'BRONZE II') return '9';
+    else if (String(Img) == 'BRONZE I') return '10';
+
+    else if (String(Img) == 'SILVER V') return '11';
+    else if (String(Img) == 'SILVER IV') return '12';
+    else if (String(Img) == 'SILVER III') return '13';
+    else if (String(Img) == 'SILVER II') return '14';
+    else if (String(Img) == 'SILVER I') return '15';
+
+    else if (String(Img) == 'GOLD IV') return '16';
+    else if (String(Img) == 'GOLD III') return '17';
+    else if (String(Img) == 'GOLD II') return '18';
+    else if (String(Img) == 'GOLD I') return '19';
+
+    else if (String(Img) == 'PLATINUM III') return '20';
+    else if (String(Img) == 'PLATINUM II') return '21';
+    else if (String(Img) == 'PLATINUM I') return '22';
+
+    else if (String(Img) == 'DIAMOND III') return '23';
+    else if (String(Img) == 'DIAMOND II') return '24';
+    else if (String(Img) == 'DIAMOND I') return '25';
+
+    else if (String(Img) == 'CHAMPION') return '26';
+    else return '27';
 }
 
 
