@@ -99,8 +99,8 @@ module.exports = {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .addFields(
-                { name: 'R6 Tracker', value: `+r6 [your name] >> 總覽\n+r6 [your name] rank >> 排位\n+r6 [your name] casual >> 一般場`, inline: true },
-                { name: 'example:', value: `+r6 blahaj_waifu\n+r6 blahaj_waifu rank\n+r6 blahaj_waifu casual`, inline: false },
+                { name: 'R6 Tracker', value: `+r6 [name] >> 總覽\n+r6 [name] rank >> 排位\n+r6 [name] casual >> 一般場`, inline: true },
+                { name: 'example:', value: `+r6 waifu_-.\n+r6 waifu_-. rank\n+r6 waifu_-. casual`, inline: false },
             )
 
         return trackerEmbed
