@@ -3,6 +3,7 @@ let request = require("request");
 let cheerio = require("cheerio");
 let auth = require('./auth.json');
 let TRN = require('./r6/r6');
+let embed = require('./r6/embed');
 
 
 const bot = new Discord.Client();
@@ -23,8 +24,19 @@ bot.on('message', message => {
     var r6_name = message.content.split(' ')
 
 
-    if(args[0] == '+R6') {
-            R6_request(r6_name[1], args[2], message.channel.id)
+    if (args[0] == '-R6') {
+        if(args[1] == 'help' || args[1] == 'HELP'){
+            console.log('HELP')
+            return message.channel.send(embed.R6_help())
+        }
+            
+        R6_request(r6_name[1], args[2], message.channel.id)
+
+        let server_id = message.guild.id
+        let channdl_id = message.channel.id
+        let server_name = message.guild.name
+        let channdl_name = message.channel.name
+        console.log(`server : ${server_name} (${server_id})  channel : ${channdl_name} (${channdl_id})`)
     }
 });
 
@@ -107,10 +119,10 @@ async function R6_request(r6name, type, id) {
 
     try {
         profile = await trackerProfile(profile, url_profile)
-        operators = await trackerOperators(operators, url_operators)
         header = await trackerHeader(header, url_profile)
+        operators = await trackerOperators(operators, url_operators)
         console.log(profile)
-        console.log(operators)
+        //console.log(operators)
         TRN.R6_record(header, r6name, url_profile, profile, operators);
         bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, profile, operators))
     }
