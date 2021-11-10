@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
-let request = require("request");
-let cheerio = require("cheerio");
-let auth = require('./auth.json');
-let TRN = require('./r6/r6');
-let embed = require('./r6/embed');
+const request = require("request");
+const cheerio = require("cheerio");
+
+const auth = require('./auth.json');
+const r6 = require('./r6/r6.js');
+const embed = require('./r6/embed');
+
+
 
 
 const bot = new Discord.Client();
@@ -16,29 +19,75 @@ bot.on('ready', () => {
 
 
 const link = "https://r6.tracker.network/profile/pc/";
-
-bot.on('message', message => {
-
-
-    var args = message.content.toUpperCase().split(' ');
-    var r6_name = message.content.split(' ')
+const prefix = '+';
 
 
-    if (args[0] == '-R6') {
-        if(args[1] == 'help' || args[1] == 'HELP'){
-            console.log('HELP')
-            return message.channel.send(embed.R6_help())
+
+
+bot.on("message", async message => {
+    let args = message.content.toUpperCase().split(' ');
+
+    if (args[0] === `${prefix}R6`) {
+
+        let profile = [];
+        let operators = [];
+        let header;
+
+        let r6name = message.content.split(' ')[1];
+
+        let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
+        let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
+
+        if (args[1] === "HELP") { // +R6 help
+            console.log("HELP");
+
+            return message.channel.send(embed.R6_help());
         }
-            
-        R6_request(r6_name[1], args[2], message.channel.id)
 
-        let server_id = message.guild.id
-        let channdl_id = message.channel.id
-        let server_name = message.guild.name
-        let channdl_name = message.channel.name
-        console.log(`server : ${server_name} (${server_id})  channel : ${channdl_name} (${channdl_id})`)
+        else if (args[2] === "OPERATOR") { // +R6 name operator ash/lesion...
+            console.log("OPERATORS");
+            if(r6.OperatorCheck(args[3])){
+                operators = await trackerOperators(operators, url_operators);
+                message.channel.send(r6.Operators(operators, args[3]));
+            }
+            else{
+                message.channel.send(embed.R6_help_operators());
+            }
+            
+        }
+
+        else if (args[1] && (!args[2] || args[2] === "RANK" || args[2] === "CASUAL")) { // +R6 name || +R6 rank/casual
+            console.log("PROFILE");
+
+            profile = await trackerProfile(profile, url_profile);
+            header = await trackerHeader(header, url_profile);
+            r6.R6_record(header, r6name, url_profile, profile, operators);
+
+            if (profile.length) { //檢查搜尋到的玩家是否正確(存在)
+                if (args[2] === "RANK") {
+                    message.channel.send(r6.Rank(profile));
+                }
+                else if (args[2] === "CASUAL") {
+                    message.channel.send(r6.Casual(profile));
+                }
+                else { // GENERAL
+                    message.channel.send(r6.General(profile));
+                }
+            }
+            else {
+                console.log("PROFILE_NOT_FOUND");
+                message.channel.send(embed.R6_Not_Found());
+            }
+        }
+
+        else {
+            console.log("NOT_FOUND");
+            message.channel.send(embed.R6_Not_Found());
+        }
     }
-});
+})
+
+
 
 
 
@@ -53,7 +102,7 @@ function trackerProfile(profile, url_profile) {
                     profile.push($(this).text().split('\n'))
                 })
                 for (i = 0; i < profile.length; ++i) {
-                    profile[i] = TRN.filterArray(String(profile[i]).split(','))
+                    profile[i] = r6.FilterArray(String(profile[i]).split(','))
                 }
                 resolve(profile);
             }
@@ -106,27 +155,3 @@ function trackerOperators(operators, url_operators) {
     });
 }
 
-
-async function R6_request(r6name, type, id) {
-
-    let profile = [];
-    let operators = [];
-    let header;
-
-    let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
-    let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
-
-
-    try {
-        profile = await trackerProfile(profile, url_profile)
-        header = await trackerHeader(header, url_profile)
-        operators = await trackerOperators(operators, url_operators)
-        console.log(profile)
-        //console.log(operators)
-        TRN.R6_record(header, r6name, url_profile, profile, operators);
-        bot.channels.cache.get(id).send(TRN.R6_type(type, r6name, profile, operators))
-    }
-    catch (message) {
-        console.log(message)
-    }
-}
