@@ -25,14 +25,16 @@ const prefix = '+';
 
 
 bot.on("message", async message => {
+
     let args = message.content.toUpperCase().split(' ');
 
     if (args[0] === `${prefix}R6`) {
-
+        
         let profile = [];
         let operators = [];
         let header;
 
+        message.channel.startTyping();
         let r6name = message.content.split(' ')[1];
 
         let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
@@ -40,20 +42,22 @@ bot.on("message", async message => {
 
         if (args[1] === "HELP") { // +R6 help
             console.log("HELP");
-
-            return message.channel.send(embed.R6_help());
+            message.channel.send(embed.R6_help());
+            return message.channel.stopTyping();
         }
 
         else if (args[2] === "OPERATOR") { // +R6 name operator ash/lesion...
             console.log("OPERATORS");
-            if(r6.OperatorCheck(args[3])){
+            if (r6.OperatorCheck(args[3])) {
                 operators = await trackerOperators(operators, url_operators);
                 message.channel.send(r6.Operators(operators, args[3]));
+                return message.channel.stopTyping();
             }
-            else{
+            else {
                 message.channel.send(embed.R6_help_operators());
+                return message.channel.stopTyping();
             }
-            
+
         }
 
         else if (args[1] && (!args[2] || args[2] === "RANK" || args[2] === "CASUAL")) { // +R6 name || +R6 rank/casual
@@ -66,28 +70,31 @@ bot.on("message", async message => {
             if (profile.length) { //檢查搜尋到的玩家是否正確(存在)
                 if (args[2] === "RANK") {
                     message.channel.send(r6.Rank(profile));
+                    return message.channel.stopTyping();
                 }
                 else if (args[2] === "CASUAL") {
                     message.channel.send(r6.Casual(profile));
+                    return message.channel.stopTyping();
                 }
                 else { // GENERAL
                     message.channel.send(r6.General(profile));
+                    return message.channel.stopTyping();
                 }
             }
             else {
                 console.log("PROFILE_NOT_FOUND");
                 message.channel.send(embed.R6_Not_Found());
+                return message.channel.stopTyping();
             }
         }
 
         else {
             console.log("NOT_FOUND");
             message.channel.send(embed.R6_Not_Found());
+            return message.channel.stopTyping();
         }
     }
 })
-
-
 
 
 
