@@ -1,5 +1,5 @@
 # r6.tracker-bot  
-This is Rainbow Six Siege track record by Web Crawler  
+This is Rainbow Six Siege stats by Discord Bot  
 use website : https://r6.tracker.network/  
 
 
