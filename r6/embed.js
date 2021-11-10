@@ -49,7 +49,7 @@ module.exports = {
 
         return trackerEmbed
     },
-    R6_General_Embed: function (header, user, url,timePlayed, win_percent, win, loss, kd, death, headshot, headShots, meleeKills, blindKills) {
+    R6_General_Embed: function (header, user, url, timePlayed, win_percent, win, loss, kd, death, headshot, headShots, meleeKills, blindKills) {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
@@ -71,8 +71,8 @@ module.exports = {
 
         return trackerEmbed
     },
-                                  //header,user,url,Operator ,Time Played,Kills,Deaths,K/D,Wins,Losses,Win %,Headshot %,DBNOs,XP,Melee Kills,Operator Stat,
-    R6_Operators_Embed: function (header, user, url, operator, timePlayed, kill, death,kd, win, loss, win_percent, headshot, DBNOs, XP, meleeKills, operatorStat) {
+    //header,user,url,Operator ,Time Played,Kills,Deaths,K/D,Wins,Losses,Win %,Headshot %,DBNOs,XP,Melee Kills,Operator Stat,
+    R6_Operators_Embed: function (header, user, url, operator, timePlayed, kill, death, kd, win, loss, win_percent, headshot, DBNOs, XP, meleeKills, operatorStat) {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
@@ -99,8 +99,30 @@ module.exports = {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .addFields(
-                { name: 'R6 Tracker', value: `+r6 [name] >> 總覽\n+r6 [name] rank >> 排位\n+r6 [name] casual >> 一般場`, inline: true },
-                { name: 'example:', value: `+r6 waifu_-.\n+r6 waifu_-. rank\n+r6 waifu_-. casual`, inline: false },
+                { name: 'R6 Tracker', value: `**總覽 :** +r6 [name]\n**排位 :** +r6 [name] rank\n**一般 :** +r6 [name] casual\n**幹員 :** +r6 [name] operator [name]`, inline: true },
+                { name: 'example:', value: `+r6 waifu_-.\n+r6 waifu\_-. rank\n+r6 waifu\_-. casual\n+r6 waifu\_-. operator ash`, inline: false },
+            )
+
+        return trackerEmbed
+    },
+
+    R6_help_operators: function () {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .addFields(
+                {
+                    name: 'R6 Tracker', value: 
+                    `ace, thermite, ash ,sledge, fuze, amaru, glaz, 
+                    zofia, thatcher, capitao, buck, blackbeard, ying, 
+                    nomad, finka, kali, hibana, montagne, lion, blitz, 
+                    twitch, nakk, flores, iana, maverick, gridlock, iq, 
+                    zero, dokkaebi, jackal,lesion, caveira, wamai, doc, 
+                    ela, bandit, mira, frost, smoke, thunderbird, alibi, 
+                    valkyrie, kaid, aruni, melusi, rook, mute, jager, 
+                    castle, tachanka, pulse, kapkan, clash, echo, vigil, 
+                    maestro, goyo, oryx, mozzie, warden, osa`, inline: true
+                },
+                { name: 'example:', value: `+r6 waifu_-. operator ash`, inline: false },
             )
 
         return trackerEmbed
