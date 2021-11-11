@@ -5,7 +5,7 @@ const base = require('./base.json');
 
 module.exports = {
     /* [] 71-75
-    *  71=> 間隔一個賽季以上或從沒打過RANK的人
+    *  71=> this season havent play rank, or never played
     *  75=> normal rank & casual 
     */
 
@@ -58,7 +58,7 @@ module.exports = {
                 }
                 //console.log('++++++' + operators[i])
                 var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
-                //header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,              Wins,           Losses,            Win %,        Headshot %,           DBNOs,               XP,      Melee Kills,   Operator Stat,
+                                              //header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,             Wins,           Losses,            Win %,       Headshot %,            DBNOs,               XP,      Melee Kills,   Operator Stat,
                 return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][15], operators[i][16], operators[i][18])
             }
         }
@@ -156,9 +156,9 @@ module.exports = {
         for (var i = 0; i < base.operators.length; ++i) {
             //console.log(type, '=', base.operators[i])
             if (type == base.operators[i]) {
-                return true
+                return true;
             }
-        } return false
+        } return false;
     }
 }
 
