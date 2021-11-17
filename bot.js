@@ -2,15 +2,15 @@ const Discord = require('discord.js');
 const request = require("request");
 const cheerio = require("cheerio");
 
-const auth = require('./auth.json');
+const config = require('./config.json');
 const r6 = require('./r6/r6.js');
-const embed = require('./r6/embed');
+const embed = require('./r6/embed.js');
 
 
 
 
 const bot = new Discord.Client();
-bot.login(auth.token);
+bot.login(config.token);
 
 
 bot.on('ready', () => {
@@ -19,7 +19,7 @@ bot.on('ready', () => {
 
 
 const link = "https://r6.tracker.network/profile/pc/";
-const prefix = '+';
+const prefix = config.prefix;
 
 
 
@@ -29,7 +29,7 @@ bot.on("message", async message => {
     let args = message.content.toUpperCase().split(' ');
 
     if (args[0] === `${prefix}R6`) {
-        
+
         let profile = [];
         let operators = [];
         let header;
