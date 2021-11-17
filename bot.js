@@ -34,11 +34,11 @@ bot.on("message", async message => {
         let operators = [];
         let header;
 
-        message.channel.startTyping();
         let r6name = message.content.split(' ')[1];
-
         let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
         let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
+
+        message.channel.startTyping();
 
         if (args[1] === "HELP") { // +R6 help
             console.log("HELP");
@@ -50,6 +50,7 @@ bot.on("message", async message => {
             console.log("OPERATORS");
             if (r6.OperatorCheck(args[3])) {
                 operators = await trackerOperators(operators, url_operators);
+                r6.R6_record(header, r6name, url_profile, profile);
                 message.channel.send(r6.Operators(operators, args[3]));
                 return message.channel.stopTyping();
             }
@@ -65,7 +66,7 @@ bot.on("message", async message => {
 
             profile = await trackerProfile(profile, url_profile);
             header = await trackerHeader(header, url_profile);
-            r6.R6_record(header, r6name, url_profile, profile, operators);
+            r6.R6_record(header, r6name, url_profile, profile);
 
             if (profile.length) { //檢查搜尋到的玩家是否正確(存在)
                 if (args[2] === "RANK") {
