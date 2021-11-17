@@ -1,4 +1,4 @@
-# r6.tracker-bot  
+# r6.tracker Discord Bot
 This is Rainbow Six Siege stats by Discord Bot  
 use website : https://r6.tracker.network/  
 
