@@ -88,6 +88,12 @@ bot.on("message", async message => {
             }
         }
 
+        else if(args[1] && args[2]){
+            console.log("FORMAT_ERROR");
+            message.channel.send(embed.R6_help());
+            return message.channel.stopTyping();
+        }
+
         else {
             console.log("NOT_FOUND");
             message.channel.send(embed.R6_Not_Found());
