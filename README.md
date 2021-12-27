@@ -12,7 +12,7 @@ use website : https://r6.tracker.network
 
 ### Clone the repository
 ```
-git clone https://github.com/hmes98318/r6.tracker-bot.git
+git clone https://github.com/hmes98318/r6-discord-bot.git
 ```
 
 ### Install the package
