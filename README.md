@@ -39,17 +39,17 @@ node bot.js
 
 get profile
 ```
-+r6 [PLAYER_NAME]
++r6 [PC/XBOX/PSN] [PLAYER_NAME]
 ```
 
 get Rank or Casual statistics
 ```
-+r6 [PLAYER_NAME] [RANK/CASUAL]
++r6 [PC/XBOX/PSN] [PLAYER_NAME] [RANK/CASUAL]
 ```
 
 get operator statistics
 ```
-+r6 [PLAYER_NAME] operator [OPERATOR_NAME]
++r6 [PC/XBOX/PSN] [PLAYER_NAME] operator [OPERATOR_NAME]
 ```
 
 get help
