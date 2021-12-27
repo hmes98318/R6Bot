@@ -5,14 +5,20 @@ const base = require('./base.json');
 
 module.exports = {
     /* [] 71-75
-    *  71=> this season havent play rank, or never played
+    *  71=> this season havent play rank or casual
     *  75=> normal rank & casual 
     */
 
     Rank: function (tracker) {
         if (tracker.length == 71) {
-            console.log('71')
-            return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDE_RANK_win_percent, record.HIDE_RANK_win, record.HIDE_RANK_loss, record.HIDE_RANK_kd, record.HIDE_RANK_kill, record.HIDE_RANK_death, record.HIDE_RANK_killMatch, record.HIDE_RANK_rank, record.HIDE_RANK_mmr, record.HIDE_RANK_rank_img)
+            if(Number(tracker[59]) || Number(tracker[60])){
+                console.log('71-havent-rank')
+                return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDERANK_RANK_win_percent, record.HIDERANK_RANK_win, record.HIDERANK_RANK_loss, record.HIDERANK_RANK_kd, record.HIDERANK_RANK_kill, record.HIDERANK_RANK_death, record.HIDERANK_RANK_killMatch, record.HIDERANK_RANK_rank, record.HIDERANK_RANK_mmr, record.HIDERANK_RANK_rank_img)
+            }
+            else{
+                console.log('71-havent-casual')//header,          user,         url,                  timePlayed,                    win_percent,                     win,                   loss,                      kd,                   kill,                      death,                   killMatch,                   rank,                      mmr,                rank_img
+                return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDECASUAL_RANK_win_percent, record.HIDECASUAL_RANK_win, record.HIDECASUAL_RANK_loss, record.HIDECASUAL_RANK_kd, record.HIDECASUAL_RANK_kill, record.HIDECASUAL_RANK_death, record.HIDECASUAL_RANK_killMatch, record.HIDECASUAL_RANK_rank, record.HIDECASUAL_RANK_mmr, record.HIDECASUAL_RANK_rank_img)
+            }
         }
         else {
             console.log('75')
@@ -23,8 +29,14 @@ module.exports = {
 
     Casual: function (tracker) {
         if (tracker.length == 71) {
-            console.log('71')
-            return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDE_CASUAL_timePlayed, record.HIDE_CASUAL_win_percent, record.HIDE_CASUAL_win, record.HIDE_CASUAL_loss, record.HIDE_CASUAL_kd, record.HIDE_CASUAL_kill, record.HIDE_CASUAL_death, record.HIDE_CASUAL_killMatch, record.HIDE_CASUAL_rank, record.HIDE_CASUAL_mmr, record.HIDE_CASUAL_rank_img)
+            if (Number(tracker[59]) || Number(tracker[60])) {
+                console.log('71-havent-rank')
+                return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDERANK_CASUAL_timePlayed, record.HIDERANK_CASUAL_win_percent, record.HIDERANK_CASUAL_win, record.HIDERANK_CASUAL_loss, record.HIDERANK_CASUAL_kd, record.HIDERANK_CASUAL_kill, record.HIDERANK_CASUAL_death, record.HIDERANK_CASUAL_killMatch, record.HIDERANK_CASUAL_rank, record.HIDERANK_CASUAL_mmr, record.HIDERANK_CASUAL_rank_img)
+            }
+            else {
+                console.log('71-havent-casual')//header,          user,         url,                  timePlayed,                    win_percent,                     win,                   loss,                      kd,                   kill,                      death,                   killMatch,                   rank,                      mmr,                rank_img
+                return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDECASUAL_CASUAL_timePlayed, record.HIDECASUAL_CASUAL_win_percent, record.HIDECASUAL_CASUAL_win, record.HIDECASUAL_CASUAL_loss, record.HIDECASUAL_CASUAL_kd, record.HIDECASUAL_CASUAL_kill, record.HIDECASUAL_CASUAL_death, record.HIDECASUAL_CASUAL_killMatch, record.HIDECASUAL_CASUAL_rank, record.HIDECASUAL_CASUAL_mmr, record.HIDECASUAL_CASUAL_rank_img)
+            }
         }
         else {
             console.log('75')
@@ -58,7 +70,7 @@ module.exports = {
                 }
                 //console.log('++++++' + operators[i])
                 var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
-                                              //header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,             Wins,           Losses,            Win %,       Headshot %,            DBNOs,               XP,      Melee Kills,   Operator Stat,
+                //header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,             Wins,           Losses,            Win %,       Headshot %,            DBNOs,               XP,      Melee Kills,   Operator Stat,
                 return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][15], operators[i][16], operators[i][18])
             }
         }
@@ -73,7 +85,7 @@ module.exports = {
         record.header = header;
         record.user = r6name;
         record.url = url;
-        //season RANK 
+        //RANK 
         record.RANK_win_percent = tracker[55];
         record.RANK_win = tracker[56];
         record.RANK_loss = tracker[57];
@@ -96,10 +108,6 @@ module.exports = {
         record.CASUAL_rank = tracker[71];
         record.CASUAL_mmr = String(tracker[73]);
         record.CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[71])}&champ=0`;
-        //casual no RANK 
-        record.CASUAL_NO_RANK_rank = tracker[50];
-        record.CASUAL_NO_RANK_mmr = String(tracker[52]);
-        record.CASUAL_NO_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[50])}&champ=0`;
         //general 
         record.GENERAL_timePlayed = tracker[16];
         record.GENERAL_win_percent = tracker[15];
@@ -111,29 +119,54 @@ module.exports = {
         record.GENERAL_handShots = tracker[12];
         record.GENERAL_meleeKills = tracker[19];
         record.GENERAL_blindKills = tracker[20];
-        //played rank, new season hide rank
-        record.HIDE_CASUAL_timePlayed = tracker[41];
-        record.HIDE_CASUAL_win_percent = tracker[63];
-        record.HIDE_CASUAL_win = tracker[64];
-        record.HIDE_CASUAL_loss = tracker[65];
-        record.HIDE_CASUAL_kd = tracker[59];
-        record.HIDE_CASUAL_kill = tracker[61];
-        record.HIDE_CASUAL_death = tracker[62];
-        record.HIDE_CASUAL_killMatch = tracker[60];
-        record.HIDE_CASUAL_rank = tracker[67];
-        record.HIDE_CASUAL_mmr = String(tracker[69]);
-        record.HIDE_CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[67])}&champ=0`;
+
+        // havent play rank, have play casual
+        record.HIDERANK_CASUAL_timePlayed = tracker[41];
+        record.HIDERANK_CASUAL_win_percent = tracker[63];
+        record.HIDERANK_CASUAL_win = tracker[64];
+        record.HIDERANK_CASUAL_loss = tracker[65];
+        record.HIDERANK_CASUAL_kd = tracker[59];
+        record.HIDERANK_CASUAL_kill = tracker[61];
+        record.HIDERANK_CASUAL_death = tracker[62];
+        record.HIDERANK_CASUAL_killMatch = tracker[60];
+        record.HIDERANK_CASUAL_rank = tracker[67];
+        record.HIDERANK_CASUAL_mmr = String(tracker[69]);
+        record.HIDERANK_CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[67])}&champ=0`;
         //-----
-        record.HIDE_RANK_win_percent = tracker[51];
-        record.HIDE_RANK_win = tracker[52];
-        record.HIDE_RANK_loss = tracker[53];
-        record.HIDE_RANK_kd = tracker[53];
-        record.HIDE_RANK_kill = tracker[53];
-        record.HIDE_RANK_death = tracker[53];
-        record.HIDE_RANK_killMatch = tracker[53];
-        record.HIDE_RANK_rank = tracker[55];
-        record.HIDE_RANK_mmr = String(tracker[57]);
-        record.HIDE_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[55])}&champ=0`;
+        record.HIDERANK_RANK_win_percent = tracker[51];
+        record.HIDERANK_RANK_win = tracker[52];
+        record.HIDERANK_RANK_loss = tracker[53];
+        record.HIDERANK_RANK_kd = tracker[53];
+        record.HIDERANK_RANK_kill = tracker[53];
+        record.HIDERANK_RANK_death = tracker[53];
+        record.HIDERANK_RANK_killMatch = tracker[53];
+        record.HIDERANK_RANK_rank = tracker[55];
+        record.HIDERANK_RANK_mmr = String(tracker[57]);
+        record.HIDERANK_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[55])}&champ=0`;
+
+        // have play rank, havent play rank
+        record.HIDECASUAL_CASUAL_timePlayed = tracker[41];
+        record.HIDECASUAL_CASUAL_win_percent = tracker[63];
+        record.HIDECASUAL_CASUAL_win = tracker[64];
+        record.HIDECASUAL_CASUAL_loss = tracker[65];
+        record.HIDECASUAL_CASUAL_kd = tracker[65];
+        record.HIDECASUAL_CASUAL_kill = tracker[65];
+        record.HIDECASUAL_CASUAL_death = tracker[65];
+        record.HIDECASUAL_CASUAL_killMatch = tracker[65];
+        record.HIDECASUAL_CASUAL_rank = tracker[67];
+        record.HIDECASUAL_CASUAL_mmr = String(tracker[69]);
+        record.HIDECASUAL_CASUAL_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[67])}&champ=0`;
+        //-----
+        record.HIDECASUAL_RANK_win_percent = tracker[55];
+        record.HIDECASUAL_RANK_win = tracker[56];
+        record.HIDECASUAL_RANK_loss = tracker[57];
+        record.HIDECASUAL_RANK_kd = tracker[51];
+        record.HIDECASUAL_RANK_kill = tracker[53];
+        record.HIDECASUAL_RANK_death = tracker[54];
+        record.HIDECASUAL_RANK_killMatch = tracker[52];
+        record.HIDECASUAL_RANK_rank = tracker[59];
+        record.HIDECASUAL_RANK_mmr = String(tracker[61]);
+        record.HIDECASUAL_RANK_rank_img = `https://cdn.tabstats.com/tabstats/r6/ranks/?rank=${RankImage(tracker[59])}&champ=0`;
     },
 
 
