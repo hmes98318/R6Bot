@@ -1,16 +1,22 @@
 var request = require("request");
 var cheerio = require("cheerio");
+// this is my r6 request note, not have affect
 
-
-var url = `https://r6.tracker.network/profile/pc/`;
+var url = `https://r6.tracker.network/profile/pc/waifu_-.`;
+// https://r6.tracker.network/profile/<pc/xbox/psn>/<PLAYER_NAME>
 
 
 let tracker = []
 let newTracker = []
+
+
+// trn-defstat__value   profile value
+// trn-table__row       all-operators
 // trn-defstat__rank    goboal rank
 // trn-defstat__name    name
 // trn-defstat__value   All-Value
 // trn-card--light      Not ranked yet
+
 request(url, function (error, response, body) {
     if (!error) {
         //console.log(body)
@@ -24,29 +30,34 @@ request(url, function (error, response, body) {
         for (i = 0; i < tracker.length; ++i) {
             newTracker[i] = filterArray(String(tracker[i]).split(','))
         }
+
+
+        j = 0
+        // before filterArray()
+        for (i of tracker) {
+            console.log("[", j++, "]", i);
+        }
         console.log('-------------------------');
-        console.log(newTracker);
+        j = 0
+        // after filterArray()
+        for (i of newTracker) {
+            console.log("[", j++, "]", i);
+        }
 
-
-
-/*
-        
-        console.log('headshot%: ' + newTracker[0])
-        console.log('KD: ' + newTracker[1])
-        console.log('dead: ' + newTracker[2])
-        console.log('headshots: ' + newTracker[3])
-        console.log('wins: ' + newTracker[4])
-        console.log('losses: ' + newTracker[5])
-        console.log('win%: ' + newTracker[6])
-        console.log('timePlayed:' + newTracker[7])
-        console.log('matchesPlayed: ' + newTracker[8])
-        console.log('totalXp: ' + newTracker[9])
-        console.log('meleeKills: ' + newTracker[10])
-        console.log('blindKills: ' + newTracker[11])
-
-
-*/
-
+        /*
+                console.log('headshot%: ' + newTracker[0])
+                console.log('KD: ' + newTracker[1])
+                console.log('dead: ' + newTracker[2])
+                console.log('headshots: ' + newTracker[3])
+                console.log('wins: ' + newTracker[4])
+                console.log('losses: ' + newTracker[5])
+                console.log('win%: ' + newTracker[6])
+                console.log('timePlayed:' + newTracker[7])
+                console.log('matchesPlayed: ' + newTracker[8])
+                console.log('totalXp: ' + newTracker[9])
+                console.log('meleeKills: ' + newTracker[10])
+                console.log('blindKills: ' + newTracker[11])
+        */
     } else {
         console.log("error:" + error);
     }
@@ -73,7 +84,156 @@ function filterArray(clearArray) {
 
 
 
-/*-----------------------------------------*/
+/*
+// before filterArray()
+[
+  [ '', '', '', '', '' ],
+  [ '', '1,810', '' ],
+  [ '', '53%', '' ],
+  [ '', '13,784', '' ],
+  [ '', '1.32', '' ],
+  [ '29' ],
+  [ '49.2%' ],
+  [ '265' ],
+  [ '1.53' ],
+  [ '', '39.45%', '' ],
+  [ '', '1.32', '' ],
+  [ '', '10,470', '' ],
+  [ '', '5,438', '' ],
+  [ '', '1,810', '' ],
+  [ '', '1,602', '' ],
+  [ '', '53%', ' ' ],
+  [ '', '790h', '' ],
+  [ '', '3,415', '' ],
+  [ '', '35,359,675', '' ],
+  [ '', '178', '' ],
+  [ '', '28', '' ],
+  [ '', '38h 47m 38s', '' ],
+  [ '', '68', '' ],
+  [ '', '56', '' ],
+  [ '', '124', '' ],
+  [ '', '485', '' ],
+  [ '', '507', '' ],
+  [ '', '54.8%', '' ],
+  [ '', '1.05', '' ],
+  [ '', '4.09', '' ],
+  [ '', '0.22', '' ],
+  [ '', '39h 41m 4s', '' ],
+  [ '', '90', '' ],
+  [ '', '111', '' ],
+  [ '', '201', '' ],
+  [ '', '795', '' ],
+  [ '', '847', '' ],
+  [ '', '44.8%', '' ],
+  [ '', '1.07', '' ],
+  [ '', '4.21', '' ],
+  [ '', '0.36', '' ],
+  [ '', '711h 45m 6s', '' ],
+  [ '', '1,652', '' ],
+  [ '', '1,435', '' ],
+  [ '', '3,087', '' ],
+  [ '', '9,190', '' ],
+  [ '', '12,430', '' ],
+  [ '', '53.5%', '' ],
+  [ '', '1.35', '' ],
+  [ '', '4.03', '' ],
+  [ '', '0.29', '' ],
+  [ '0.00' ],
+  [ '0' ],
+  [ '0' ],
+  [ '0' ],
+  [ '-' ],
+  [ '-' ],
+  [ '2,874' ],
+  [ '0' ],
+  [ '', '1.51', '', '' ],
+  [ '', '4.44', '', '' ],
+  [ '', '315', '', '' ],
+  [ '', '208', '', '' ],
+  [ '49.30' ],
+  [ '35' ],
+  [ '35' ],
+  [ '1' ],
+  [ 'PLATINUM II' ],
+  [ '-' ],
+  [ '3,596' ],
+  [ '0' ]
+]
+-------------------------
+// after filterArray()
+[
+  [],                     [ '1', '810' ],    [ '53%' ],
+  [ '13', '784' ],        [ '1.32' ],        [ '29' ],
+  [ '49.2%' ],            [ '265' ],         [ '1.53' ],
+  [ '39.45%' ],           [ '1.32' ],        [ '10', '470' ],
+  [ '5', '438' ],         [ '1', '810' ],    [ '1', '602' ],
+  [ '53%', ' ' ],         [ '790h' ],        [ '3', '415' ],
+  [ '35', '359', '675' ], [ '178' ],         [ '28' ],
+  [ '38h 47m 38s' ],      [ '68' ],          [ '56' ],
+  [ '124' ],              [ '485' ],         [ '507' ],
+  [ '54.8%' ],            [ '1.05' ],        [ '4.09' ],
+  [ '0.22' ],             [ '39h 41m 4s' ],  [ '90' ],
+  [ '111' ],              [ '201' ],         [ '795' ],
+  [ '847' ],              [ '44.8%' ],       [ '1.07' ],
+  [ '4.21' ],             [ '0.36' ],        [ '711h 45m 6s' ],
+  [ '1', '652' ],         [ '1', '435' ],    [ '3', '087' ],
+  [ '9', '190' ],         [ '12', '430' ],   [ '53.5%' ],
+  [ '1.35' ],             [ '4.03' ],        [ '0.29' ],
+  [ '0.00' ],             [ '0' ],           [ '0' ],
+  [ '0' ],                [ '-' ],           [ '-' ],
+  [ '2', '874' ],         [ '0' ],           [ '1.51' ],
+  [ '4.44' ],             [ '315' ],         [ '208' ],
+  [ '49.30' ],            [ '35' ],          [ '35' ],
+  [ '1' ],                [ 'PLATINUM II' ], [ '-' ],
+  [ '3', '596' ],         [ '0' ]
+]
+
+*/
+
+
+
+
+//----------r6 tab------------
+// because r6.tracker rank_img is .SVG files, i convert to r6-tab rank_img(.png) to use
+
+//rank_img = `https://tabstats.com/images/r6/ranks/?rank=${RankImage(newTracker[51])}&champ=0`
+/*
+Copper [5] = 1      // https://tabstats.com/images/r6/ranks/?rank=1&champ=0
+Copper [4] = 2      // https://tabstats.com/images/r6/ranks/?rank=2&champ=0
+Copper [3] = 3      // https://tabstats.com/images/r6/ranks/?rank=3&champ=0
+Copper [2] = 4      // https://tabstats.com/images/r6/ranks/?rank=4&champ=0
+Copper [1] = 5      // https://tabstats.com/images/r6/ranks/?rank=5&champ=0
+
+Bronze [3] = 6      // https://tabstats.com/images/r6/ranks/?rank=6&champ=0
+Bronze [2] = 7      // https://tabstats.com/images/r6/ranks/?rank=7&champ=0
+Bronze [1] = 8      // https://tabstats.com/images/r6/ranks/?rank=8&champ=0
+
+Silver [4] = 9      // https://tabstats.com/images/r6/ranks/?rank=9&champ=0
+Silver [3] = 10     // https://tabstats.com/images/r6/ranks/?rank=10&champ=0
+Silver [2] = 11     // https://tabstats.com/images/r6/ranks/?rank=11&champ=0
+Silver [1] = 12     // https://tabstats.com/images/r6/ranks/?rank=12&champ=0
+
+Gold [4] = 13       // https://tabstats.com/images/r6/ranks/?rank=13&champ=0
+Gold [3] = 14       // https://tabstats.com/images/r6/ranks/?rank=14&champ=0
+Gold [2] = 15       // https://tabstats.com/images/r6/ranks/?rank=15&champ=0
+Gold [1] = 16       // https://tabstats.com/images/r6/ranks/?rank=16&champ=0
+
+Platinum [3] = 17   // https://tabstats.com/images/r6/ranks/?rank=17&champ=0
+Platinum [2] = 18   // https://tabstats.com/images/r6/ranks/?rank=18&champ=0
+Platinum [1] = 19   // https://tabstats.com/images/r6/ranks/?rank=19&champ=0
+
+Diamond [1] = 20    // https://tabstats.com/images/r6/ranks/?rank=20&champ=0
+Champion [1] = 21   // https://tabstats.com/images/r6/ranks/?rank=21&champ=0
+Unranked [1] = 22   // https://tabstats.com/images/r6/ranks/?rank=22&champ=0
+
+*/
+
+
+
+
+
+/*-----------------------------------------
+
 //newTracker[]
 
 //general
@@ -206,34 +366,4 @@ maxMmr = [65]
   [ '#383', '003' ],      [ '#305', '734' ],
   [ '#2', '396', '869' ], [ '#1', '484', '110' ],
 ]
-
-//----------r6 tab------------
-//rank_img = `https://tabstats.com/images/r6/ranks/?rank=${RankImage(newTracker[51])}&champ=0`
-Copper [5] = 1      // https://tabstats.com/images/r6/ranks/?rank=1&champ=0
-Copper [4] = 2      // https://tabstats.com/images/r6/ranks/?rank=2&champ=0
-Copper [3] = 3      // https://tabstats.com/images/r6/ranks/?rank=3&champ=0
-Copper [2] = 4      // https://tabstats.com/images/r6/ranks/?rank=4&champ=0
-Copper [1] = 5      // https://tabstats.com/images/r6/ranks/?rank=5&champ=0
-
-Bronze [3] = 6      // https://tabstats.com/images/r6/ranks/?rank=6&champ=0
-Bronze [2] = 7      // https://tabstats.com/images/r6/ranks/?rank=7&champ=0
-Bronze [1] = 8      // https://tabstats.com/images/r6/ranks/?rank=8&champ=0
-
-Silver [4] = 9      // https://tabstats.com/images/r6/ranks/?rank=9&champ=0
-Silver [3] = 10     // https://tabstats.com/images/r6/ranks/?rank=10&champ=0
-Silver [2] = 11     // https://tabstats.com/images/r6/ranks/?rank=11&champ=0
-Silver [1] = 12     // https://tabstats.com/images/r6/ranks/?rank=12&champ=0
-
-Gold [4] = 13       // https://tabstats.com/images/r6/ranks/?rank=13&champ=0
-Gold [3] = 14       // https://tabstats.com/images/r6/ranks/?rank=14&champ=0
-Gold [2] = 15       // https://tabstats.com/images/r6/ranks/?rank=15&champ=0
-Gold [1] = 16       // https://tabstats.com/images/r6/ranks/?rank=16&champ=0
-
-Platinum [3] = 17   // https://tabstats.com/images/r6/ranks/?rank=17&champ=0
-Platinum [2] = 18   // https://tabstats.com/images/r6/ranks/?rank=18&champ=0
-Platinum [1] = 19   // https://tabstats.com/images/r6/ranks/?rank=19&champ=0
-
-Diamond [1] = 20    // https://tabstats.com/images/r6/ranks/?rank=20&champ=0
-Champion [1] = 21   // https://tabstats.com/images/r6/ranks/?rank=21&champ=0
-Unranked [1] = 22   // https://tabstats.com/images/r6/ranks/?rank=22&champ=0
-
+*/
