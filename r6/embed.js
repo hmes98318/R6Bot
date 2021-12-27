@@ -99,8 +99,8 @@ module.exports = {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .addFields(
-                { name: 'R6 Tracker', value: `**總覽 :** +r6 [name]\n**排位 :** +r6 [name] rank\n**一般 :** +r6 [name] casual\n**幹員 :** +r6 [name] operator [name]`, inline: true },
-                { name: 'example:', value: `+r6 waifu_-.\n+r6 waifu\_-. rank\n+r6 waifu\_-. casual\n+r6 waifu\_-. operator ash`, inline: false },
+                { name: 'R6 Tracker', value: `**Profile :** +r6 [pc/xbox/psn] [name]\n**Rank :** +r6 [pc/xbox/psn] [name] rank\n**Casual :** +r6 [pc/xbox/psn] [name] casual\n**Operators :** +r6 [pc/xbox/psn] [name] operator [name]`, inline: true },
+                { name: 'example:', value: `+r6 pc waifu\\_-.\n+r6 pc waifu\\_-. rank\n+r6 pc waifu\\_-. casual\n+r6 pc waifu\\_-. operator ash`, inline: false },
             )
 
         return trackerEmbed
@@ -122,7 +122,18 @@ module.exports = {
                     castle, tachanka, pulse, kapkan, clash, echo, vigil, 
                     maestro, goyo, oryx, mozzie, warden, osa`, inline: true
                 },
-                { name: 'example:', value: `+r6 waifu_-. operator ash`, inline: false },
+                { name: 'example:', value: `+r6 pc waifu\\_-. operator ash`, inline: false },
+            )
+
+        return trackerEmbed
+    },
+
+    R6_help_platform: function () {
+        const trackerEmbed = new Discord.MessageEmbed()
+            .setColor('#ff00ee')
+            .addFields(
+                { name: 'R6 Tracker', value: `+r6 [pc/xbox/psn] [name] [casual/rank]`, inline: true },
+                { name: 'example:', value: `+r6 pc waifu\\_-.\n+r6 psn Killermcn rank\n+r6 xbox SSkyte casual\n+r6 pc waifu\\_-. operator ash`, inline: false },
             )
 
         return trackerEmbed
