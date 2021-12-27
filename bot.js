@@ -18,7 +18,7 @@ bot.on('ready', () => {
 });
 
 
-const link = "https://r6.tracker.network/profile/pc/";
+const link = "https://r6.tracker.network/profile/";
 const prefix = config.prefix;
 
 
@@ -29,14 +29,15 @@ bot.on("message", async message => {
     let args = message.content.toUpperCase().split(' ');
 
     if (args[0] === `${prefix}R6`) {
-
+        
         let profile = [];
         let operators = [];
         let header;
 
-        let r6name = message.content.split(' ')[1];
-        let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
-        let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
+        let gameplatform= message.content.split(' ')[1]
+        let r6name = message.content.split(' ')[2];
+        let url_profile = `https://r6.tracker.network/profile/${gameplatform}/${r6name}`;
+        let url_operators = `https://r6.tracker.network/profile/${gameplatform}/${r6name}/operators`;
 
         message.channel.startTyping();
 
@@ -46,12 +47,18 @@ bot.on("message", async message => {
             return message.channel.stopTyping();
         }
 
-        else if (args[2] === "OPERATOR") { // +R6 name operator ash/lesion...
+        if(args[1] !== "HELP" && args[1] !== "PC" && args[1] !== "XBOX" && args[1] !== "PSN" && args[1] !== "PS4" && args[1] !== "PS5"){
+            console.log("PLATFORM_ERROR"); // if enter platform not pc/xbox/osn
+            message.channel.send(embed.R6_help_platform());
+            return message.channel.stopTyping();
+        }
+
+        else if (args[3] === "OPERATOR") { // +R6 [platform] [name] operator ash/lesion...
             console.log("OPERATORS");
-            if (r6.OperatorCheck(args[3])) {
+            if (r6.OperatorCheck(args[4])) {
                 operators = await trackerOperators(operators, url_operators);
                 r6.R6_record(header, r6name, url_profile, profile);
-                message.channel.send(r6.Operators(operators, args[3]));
+                message.channel.send(r6.Operators(operators, args[4]));
                 return message.channel.stopTyping();
             }
             else {
@@ -61,19 +68,19 @@ bot.on("message", async message => {
 
         }
 
-        else if (args[1] && (!args[2] || args[2] === "RANK" || args[2] === "CASUAL")) { // +R6 name || +R6 rank/casual
+        else if (args[2] && (!args[3] || args[3] === "RANK" || args[3] === "CASUAL")) { // +R6 [platform] [name]  || +R6 [platform] [name] rank/casual
             console.log("PROFILE");
 
             profile = await trackerProfile(profile, url_profile);
             header = await trackerHeader(header, url_profile);
             r6.R6_record(header, r6name, url_profile, profile);
 
-            if (profile.length) { //檢查搜尋到的玩家是否正確(存在)
-                if (args[2] === "RANK") {
+            if (profile.length) { //Check if the searched player is correct (exists)
+                if (args[3] === "RANK") {
                     message.channel.send(r6.Rank(profile));
                     return message.channel.stopTyping();
                 }
-                else if (args[2] === "CASUAL") {
+                else if (args[3] === "CASUAL") {
                     message.channel.send(r6.Casual(profile));
                     return message.channel.stopTyping();
                 }
@@ -89,7 +96,7 @@ bot.on("message", async message => {
             }
         }
 
-        else if(args[1] && args[2]){
+        else if(args[2] && args[3]){
             console.log("FORMAT_ERROR");
             message.channel.send(embed.R6_help());
             return message.channel.stopTyping();
@@ -122,7 +129,7 @@ function trackerProfile(profile, url_profile) {
             }
             else {
                 reject(error);
-                console.log("擷取錯誤：" + error);
+                console.log("Extraction error" + error);
             }
         });
     });
@@ -143,7 +150,7 @@ function trackerHeader(header, url_profile) {
             }
             else {
                 reject(error);
-                console.log("擷取錯誤：" + error);
+                console.log("Extraction error" + error);
             }
         })
     })
@@ -163,9 +170,8 @@ function trackerOperators(operators, url_operators) {
             }
             else {
                 reject(error);
-                console.log("擷取錯誤：" + error);
+                console.log("Extraction error" + error);
             }
         });
     });
 }
-
