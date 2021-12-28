@@ -17,7 +17,7 @@ module.exports = {
                 { name: 'MMR', value: `**${mmr}**`, inline: true },
                 { name: '\u200B', value: '\u200B' },
                 { name: 'Win/Loss', value: `**${win_percent}%**\nWin **${win}**\nLoss **${loss}**`, inline: true },
-                { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\nKills **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
             )
             .setTimestamp()
@@ -41,7 +41,7 @@ module.exports = {
 
                 { name: '\u200B', value: '\u200B' },
                 { name: 'Win/Loss', value: `**${win_percent}%**\nWin **${win}**\nLoss **${loss}**`, inline: true },
-                { name: 'K/D', value: `**${kd}**\nKill **${kill}**\nDeath **${death}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\nKills **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
             )
             .setTimestamp()
@@ -49,7 +49,7 @@ module.exports = {
 
         return trackerEmbed
     },
-    R6_General_Embed: function (header, user, url, timePlayed, win_percent, win, loss, kd, death, headshot, headShots, meleeKills, blindKills) {
+    R6_General_Embed: function (header, user, url, timePlayed, win_percent, win, loss, kd, kill,death, headshot, headShots, meleeKills, blindKills) {
         const trackerEmbed = new Discord.MessageEmbed()
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
@@ -59,7 +59,7 @@ module.exports = {
             .setThumbnail(header)
             .addFields(
                 { name: 'Win/Loss', value: `**${win_percent}**\nWin **${win}**\nLoss **${loss}**`, inline: true },
-                { name: 'K/D', value: `**${kd}**\n\Death **${death}**`, inline: true },
+                { name: 'K/D', value: `**${kd}**\n\Kills **${kill}**\n\Death **${death}**`, inline: true },
                 { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
                 { name: '\u200B', value: '\u200B' },
                 { name: 'Head Shot', value: `**${headshot}**\nHead Shots **${headShots}**`, inline: true },
