@@ -47,7 +47,7 @@ bot.on("message", async message => {
             return message.channel.stopTyping();
         }
 
-        if(args[1] !== "HELP" && args[1] !== "PC" && args[1] !== "XBOX" && args[1] !== "PSN" && args[1] !== "PS4" && args[1] !== "PS5"){
+        if(args[1] !== "PC" && args[1] !== "XBOX" && args[1] !== "PSN" && args[1] !== "PS4" && args[1] !== "PS5"){
             console.log("PLATFORM_ERROR"); // if enter platform not pc/xbox/osn
             message.channel.send(embed.R6_help_platform());
             return message.channel.stopTyping();
