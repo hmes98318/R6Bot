@@ -3,7 +3,7 @@
 function Record(header, user, url,
   RANK_win_percent, RANK_win, RANK_loss, RANK_kd, RANK_kill, RANK_death, RANK_killMatch, RANK_rank, RANK_mmr, RANK_rank_img,
   CASUAL_timePlayed, CASUAL_win_percent, CASUAL_win, CASUAL_loss, CASUAL_kd, CASUAL_kill, CASUAL_death, CASUAL_killMatch, CASUAL_rank, CASUAL_mmr, CASUAL_rank_img,
-  GENERAL_timePlayed, GENERAL_win_percent, GENERAL_win, GENERAL_loss, GENERAL_kd, GENERAL_death, GENERAL_handShot, GENERAL_handShots, GENERAL_meleeKills, GENERAL_blindKills,
+  GENERAL_timePlayed, GENERAL_win_percent, GENERAL_win, GENERAL_loss, GENERAL_kd, GENERAL_kill, GENERAL_death, GENERAL_handShot, GENERAL_handShots, GENERAL_meleeKills, GENERAL_blindKills,
   HIDERANK_CASUAL_timePlayed, HIDERANK_CASUAL_win_percent, HIDERANK_CASUAL_win, HIDERANK_CASUAL_loss, HIDERANK_CASUAL_kd, HIDERANK_CASUAL_kill, HIDERANK_CASUAL_death, HIDERANK_CASUAL_killMatch, HIDERANK_CASUAL_rank, HIDERANK_CASUAL_mmr, HIDERANK_CASUAL_rank_img,
   HIDERANK_RANK_win_percent, HIDERANK_RANK_win, HIDERANK_RANK_loss, HIDERANK_RANK_kd, HIDERANK_RANK_kill, HIDERANK_RANK_death, HIDERANK_RANK_killMatch, HIDERANK_RANK_rank, HIDERANK_RANK_mmr, HIDERANK_RANK_rank_img,
   HIDECASUAL_CASUAL_timePlayed, HIDECASUAL_CASUAL_win_percent, HIDECASUAL_CASUAL_win, HIDECASUAL_CASUAL_loss, HIDECASUAL_CASUAL_kd, HIDECASUAL_CASUAL_kill, HIDECASUAL_CASUAL_death, HIDECASUAL_CASUAL_killMatch, HIDECASUAL_CASUAL_rank, HIDECASUAL_CASUAL_mmr, HIDECASUAL_CASUAL_rank_img,
@@ -45,6 +45,7 @@ function Record(header, user, url,
   this.GENERAL_win = GENERAL_win;
   this.GENERAL_loss = GENERAL_loss;
   this.GENERAL_kd = GENERAL_kd;
+  this.GENERAL_kill = GENERAL_kill;
   this.GENERAL_death = GENERAL_death;
   this.GENERAL_handShot = GENERAL_handShot;
   this.GENERAL_handShots = GENERAL_handShots;
@@ -76,27 +77,27 @@ function Record(header, user, url,
   this.HIDERANK_RANK_rank_img = HIDERANK_RANK_rank_img;
 
   // have play rank, havent play rank
-  this.HIDECASUAL_CASUAL_timePlayed = HIDECASUAL_CASUAL_timePlayed
-  this.HIDECASUAL_CASUAL_win_percent = HIDECASUAL_CASUAL_win_percent
-  this.HIDECASUAL_CASUAL_win = HIDECASUAL_CASUAL_win
-  this.HIDECASUAL_CASUAL_loss = HIDECASUAL_CASUAL_loss
-  this.HIDECASUAL_CASUAL_kd = HIDECASUAL_CASUAL_kd
-  this.HIDECASUAL_CASUAL_kill = HIDECASUAL_CASUAL_kill
-  this.HIDECASUAL_CASUAL_death = HIDECASUAL_CASUAL_death
-  this.HIDECASUAL_CASUAL_killMatch = HIDECASUAL_CASUAL_killMatch
-  this.HIDECASUAL_CASUAL_rank = HIDECASUAL_CASUAL_rank
-  this.HIDECASUAL_CASUAL_mmr = HIDECASUAL_CASUAL_mmr
-  this.HIDECASUAL_CASUAL_rank_img = HIDECASUAL_CASUAL_rank_img
+  this.HIDECASUAL_CASUAL_timePlayed = HIDECASUAL_CASUAL_timePlayed;
+  this.HIDECASUAL_CASUAL_win_percent = HIDECASUAL_CASUAL_win_percent;
+  this.HIDECASUAL_CASUAL_win = HIDECASUAL_CASUAL_win;
+  this.HIDECASUAL_CASUAL_loss = HIDECASUAL_CASUAL_loss;
+  this.HIDECASUAL_CASUAL_kd = HIDECASUAL_CASUAL_kd;
+  this.HIDECASUAL_CASUAL_kill = HIDECASUAL_CASUAL_kill;
+  this.HIDECASUAL_CASUAL_death = HIDECASUAL_CASUAL_death;
+  this.HIDECASUAL_CASUAL_killMatch = HIDECASUAL_CASUAL_killMatch;
+  this.HIDECASUAL_CASUAL_rank = HIDECASUAL_CASUAL_rank;
+  this.HIDECASUAL_CASUAL_mmr = HIDECASUAL_CASUAL_mmr;
+  this.HIDECASUAL_CASUAL_rank_img = HIDECASUAL_CASUAL_rank_img;
   //-----
-  this.HIDECASUAL_RANK_win_percent = HIDECASUAL_RANK_win_percent
-  this.HIDECASUAL_RANK_win = HIDECASUAL_RANK_win
-  this.HIDECASUAL_RANK_loss = HIDECASUAL_RANK_loss
-  this.HIDECASUAL_RANK_kd = HIDECASUAL_RANK_kd
-  this.HIDECASUAL_RANK_kill = HIDECASUAL_RANK_kill
-  this.HIDECASUAL_RANK_death = HIDECASUAL_RANK_death
-  this.HIDECASUAL_RANK_killMatch = HIDECASUAL_RANK_killMatch
-  this.HIDECASUAL_RANK_rank = HIDECASUAL_RANK_rank
-  this.HIDECASUAL_RANK_mmr = HIDECASUAL_RANK_mmr
-  this.HIDECASUAL_RANK_rank_img = HIDECASUAL_RANK_rank_img
+  this.HIDECASUAL_RANK_win_percent = HIDECASUAL_RANK_win_percent;
+  this.HIDECASUAL_RANK_win = HIDECASUAL_RANK_win;
+  this.HIDECASUAL_RANK_loss = HIDECASUAL_RANK_loss;
+  this.HIDECASUAL_RANK_kd = HIDECASUAL_RANK_kd;
+  this.HIDECASUAL_RANK_kill = HIDECASUAL_RANK_kill;
+  this.HIDECASUAL_RANK_death = HIDECASUAL_RANK_death;
+  this.HIDECASUAL_RANK_killMatch = HIDECASUAL_RANK_killMatch;
+  this.HIDECASUAL_RANK_rank = HIDECASUAL_RANK_rank;
+  this.HIDECASUAL_RANK_mmr = HIDECASUAL_RANK_mmr;
+  this.HIDECASUAL_RANK_rank_img = HIDECASUAL_RANK_rank_img;
 }
 let record = new Record();
