@@ -11,12 +11,12 @@ module.exports = {
 
     Rank: function (tracker) {
         if (tracker.length == 71) {
-            if(Number(tracker[59]) || Number(tracker[60])){
+            if (Number(tracker[59]) || Number(tracker[60])) {
                 console.log('71-havent-rank')
                 return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDERANK_RANK_win_percent, record.HIDERANK_RANK_win, record.HIDERANK_RANK_loss, record.HIDERANK_RANK_kd, record.HIDERANK_RANK_kill, record.HIDERANK_RANK_death, record.HIDERANK_RANK_killMatch, record.HIDERANK_RANK_rank, record.HIDERANK_RANK_mmr, record.HIDERANK_RANK_rank_img)
             }
-            else{
-                console.log('71-havent-casual')//header,          user,         url,                  timePlayed,                    win_percent,                     win,                   loss,                      kd,                   kill,                      death,                   killMatch,                   rank,                      mmr,                rank_img
+            else {
+                console.log('71-havent-casual')//header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank, mmr, rank_img
                 return embed.R6_Ranked_Embed(record.header, record.user, record.url, record.HIDECASUAL_RANK_win_percent, record.HIDECASUAL_RANK_win, record.HIDECASUAL_RANK_loss, record.HIDECASUAL_RANK_kd, record.HIDECASUAL_RANK_kill, record.HIDECASUAL_RANK_death, record.HIDECASUAL_RANK_killMatch, record.HIDECASUAL_RANK_rank, record.HIDECASUAL_RANK_mmr, record.HIDECASUAL_RANK_rank_img)
             }
         }
@@ -30,11 +30,11 @@ module.exports = {
     Casual: function (tracker) {
         if (tracker.length == 71) {
             if (Number(tracker[59]) || Number(tracker[60])) {
-                console.log('71-havent-rank')
+                console.log('71-havent-rank')//header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank,mmr, rank_img
                 return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDERANK_CASUAL_timePlayed, record.HIDERANK_CASUAL_win_percent, record.HIDERANK_CASUAL_win, record.HIDERANK_CASUAL_loss, record.HIDERANK_CASUAL_kd, record.HIDERANK_CASUAL_kill, record.HIDERANK_CASUAL_death, record.HIDERANK_CASUAL_killMatch, record.HIDERANK_CASUAL_rank, record.HIDERANK_CASUAL_mmr, record.HIDERANK_CASUAL_rank_img)
             }
             else {
-                console.log('71-havent-casual')//header,          user,         url,                  timePlayed,                    win_percent,                     win,                   loss,                      kd,                   kill,                      death,                   killMatch,                   rank,                      mmr,                rank_img
+                console.log('71-havent-casual')//header, user, url, timePlayed, win_percent, win, loss, kd, kill, death, killMatch, rank,mmr, rank_img
                 return embed.R6_Casual_Embed(record.header, record.user, record.url, record.HIDECASUAL_CASUAL_timePlayed, record.HIDECASUAL_CASUAL_win_percent, record.HIDECASUAL_CASUAL_win, record.HIDECASUAL_CASUAL_loss, record.HIDECASUAL_CASUAL_kd, record.HIDECASUAL_CASUAL_kill, record.HIDECASUAL_CASUAL_death, record.HIDECASUAL_CASUAL_killMatch, record.HIDECASUAL_CASUAL_rank, record.HIDECASUAL_CASUAL_mmr, record.HIDECASUAL_CASUAL_rank_img)
             }
         }
@@ -46,8 +46,8 @@ module.exports = {
     },
 
     General: function () {
-        //header, user, url, timePlayed, win_percent, win, loss, kd, death, handShot, handShots, meleeKills, blindKills 
-        return embed.R6_General_Embed(record.header, record.user, record.url, record.GENERAL_timePlayed, record.GENERAL_win_percent, record.GENERAL_win, record.GENERAL_loss, record.GENERAL_kd, record.GENERAL_death, record.GENERAL_handShot, record.GENERAL_handShots, record.GENERAL_meleeKills, record.GENERAL_blindKills)
+        //                                   header,        user,        url,                timePlayed,                win_percent,                win,                loss,                kd,                kill,                death,                handShot,                handShots,                meleeKills,                blindKills 
+        return embed.R6_General_Embed(record.header, record.user, record.url, record.GENERAL_timePlayed, record.GENERAL_win_percent, record.GENERAL_win, record.GENERAL_loss, record.GENERAL_kd, record.GENERAL_kill, record.GENERAL_death, record.GENERAL_handShot, record.GENERAL_handShots, record.GENERAL_meleeKills, record.GENERAL_blindKills)
 
     },
 
@@ -114,6 +114,7 @@ module.exports = {
         record.GENERAL_win = tracker[13];
         record.GENERAL_loss = tracker[14];
         record.GENERAL_kd = tracker[10];
+        record.GENERAL_kill = tracker[3]
         record.GENERAL_death = tracker[11];
         record.GENERAL_handShot = tracker[9];
         record.GENERAL_handShots = tracker[12];
