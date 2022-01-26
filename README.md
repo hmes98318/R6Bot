@@ -24,7 +24,7 @@ npm install discord.js axios cheerio
 {
     "token": "yourToken",
     "prefix": "+",
-    "name": "r6-ddiscord-bot"
+    "name": "r6-discord-bot"
 }
 ```
 
