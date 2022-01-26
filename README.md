@@ -31,7 +31,7 @@ npm install discord.js axios cheerio
 # Running the script 
 
 ```
-node bot.js
+node index.js
 ```
 
 # Command
