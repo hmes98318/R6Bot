@@ -9,7 +9,7 @@ module.exports = {
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
             .setURL(url)
-            .setAuthor(user, header, url)
+            .setAuthor({ name: user, iconURL: header, url: url })
             .setDescription('Ranked')
             .setThumbnail(rank_img)
             .addFields(
@@ -20,8 +20,7 @@ module.exports = {
                 { name: 'K/D', value: `**${kd}**\nKills **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
             )
-            .setTimestamp()
-            .setFooter('', url);
+            .setTimestamp();
 
         return trackerEmbed
     },
@@ -31,7 +30,7 @@ module.exports = {
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
             .setURL(url)
-            .setAuthor(user, header, url)
+            .setAuthor({ name: user, iconURL: header, url: url })
             .setDescription('Casual')
             .setThumbnail(rank_img)
             .addFields(
@@ -44,8 +43,7 @@ module.exports = {
                 { name: 'K/D', value: `**${kd}**\nKills **${kill}**\nDeath **${death}**`, inline: true },
                 { name: 'Kill/Match', value: `**${killMatch}**`, inline: true },
             )
-            .setTimestamp()
-            .setFooter('', url);
+            .setTimestamp();
 
         return trackerEmbed
     },
@@ -54,7 +52,7 @@ module.exports = {
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
             .setURL(url)
-            .setAuthor(user, header, url)
+            .setAuthor({ name: user, iconURL: header, url: url })
             .setDescription('General Profile')
             .setThumbnail(header)
             .addFields(
@@ -66,8 +64,7 @@ module.exports = {
                 { name: 'Melee Kills', value: `**${meleeKills}**`, inline: true },
                 { name: 'Blind Kills', value: `**${blindKills}**`, inline: true },
             )
-            .setTimestamp()
-            .setFooter('', url);
+            .setTimestamp();
 
         return trackerEmbed
     },
@@ -77,7 +74,7 @@ module.exports = {
             .setColor('#ff00ee')
             .setTitle(`Open ${user} R6 Tracker Profile`)
             .setURL(url)
-            .setAuthor(user, header, url)
+            .setAuthor({ name: user, iconURL: header, url: url })
             .setDescription(operator)
             .setThumbnail(header)
             .addFields(
@@ -89,8 +86,7 @@ module.exports = {
                 { name: 'Melee Kills', value: `**${meleeKills}**`, inline: true },
                 { name: 'Operator Stat', value: `**${operatorStat}**\nXP **${XP}**`, inline: true },
             )
-            .setTimestamp()
-            .setFooter('', url);
+            .setTimestamp();
 
         return trackerEmbed
     },
