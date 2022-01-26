@@ -2,7 +2,7 @@
 Rainbow Six Siege stats Discord Bot   
 
 ### Reference version  
-**node.js  `v16.8.0`**  
+**node.js  `v16.13.2`**  
 **discord.js  `v13.6.0`**  
   
   
