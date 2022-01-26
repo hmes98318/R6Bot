@@ -52,8 +52,8 @@ module.exports = {
     },
 
     Operators: function (operators, type) {
-        for (var i = 1; i < operators.length; ++i) {
-            console.log('--' + operators[i])
+        for (var i = 1; i < operators.length; i++) {
+
             if (operators[i][3] == 'NØKK') {
                 operators[i][3] = 'NAKK';
             }
@@ -63,16 +63,18 @@ module.exports = {
             if (operators[i][3] == 'CAPITÃO') {
                 operators[i][3] = 'CAPITAO';
             }
+
             if (type == operators[i][3]) {
-                console.log('++' + operators[i])
-                for (j = 0; j < 20; ++j) {
+                console.log('>>[' + operators[i] + ']');
+                for (j = 0; j < operators[i].length; j++) {
                     console.log(`[${j}] = ${operators[i][j]}`)
                 }
                 //console.log('++++++' + operators[i])
-                var header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
-                //header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,             Wins,           Losses,            Win %,       Headshot %,            DBNOs,               XP,      Melee Kills,   Operator Stat,
+                let header = `https://trackercdn.com/cdn/r6.tracker.network/operators/badges/${type.toLowerCase()}.png`
+                //                              header,        user,        url,        Operator ,    Time Played,           Kills,          Deaths,             K/D,             Wins,           Losses,            Win %,       Headshot %,            DBNOs,               XP,      Melee Kills,   Operator Stat,
                 return embed.R6_Operators_Embed(header, record.user, record.url, operators[i][3], operators[i][6], operators[i][7], operators[i][8], operators[i][9], operators[i][10], operators[i][11], operators[i][12], operators[i][13], operators[i][14], operators[i][15], operators[i][16], operators[i][18])
             }
+            console.log('__[' + operators[i] + ']');
         }
 
         //console.log('-------- operators --------' + operators[1][0])
@@ -187,7 +189,7 @@ module.exports = {
     },
 
     OperatorCheck: function (type) {
-        for (var i = 0; i < base.operators.length; ++i) {
+        for (var i = 0; i < base.operators.length; i++) {
             //console.log(type, '=', base.operators[i])
             if (type == base.operators[i]) {
                 return true;
@@ -235,6 +237,3 @@ function RankImage(Img) {
     else if (String(Img) == 'CHAMPION') return '26';
     else return '27';
 }
-
-
-
