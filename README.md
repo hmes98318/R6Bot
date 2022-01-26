@@ -1,10 +1,9 @@
 # R6s Discord Bot
-This is Rainbow Six Siege stats by Discord Bot  
-use website : https://r6.tracker.network  
+Rainbow Six Siege stats Discord Bot   
 
 ### Reference version  
 **node.js  `v16.8.0`**  
-**discord.js  `v12.5.1`**  
+**discord.js  `v13.6.0`**  
   
   
   
@@ -17,7 +16,7 @@ git clone https://github.com/hmes98318/r6-discord-bot.git
 
 ### Install the package
 ```
-npm install discord.js@12.5.1 request cheerio  
+npm install discord.js axios cheerio  
 ```
 
 ### Modify `config.json`
@@ -25,7 +24,7 @@ npm install discord.js@12.5.1 request cheerio
 {
     "token": "yourToken",
     "prefix": "+",
-    "name": "r6.tracker-bot"
+    "name": "r6-ddiscord-bot"
 }
 ```
 
