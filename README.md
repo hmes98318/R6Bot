@@ -22,9 +22,11 @@ npm install discord.js axios cheerio
 ### Modify `config.json`
 ```json
 {
-    "token": "yourToken",
-    "prefix": "+",
-    "name": "r6-discord-bot"
+    "TOKEN": "yourToken",
+    "GUILD_ID": "yourGuildID",
+    "CLIENT_ID": "yourClientID",
+    "PREFIX": "+",
+    "NAME": "r6-discord-bot"
 }
 ```
 
