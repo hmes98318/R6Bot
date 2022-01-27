@@ -9,16 +9,14 @@ const tracker = require('./r6/tracker.js');
 
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-client.login(config.token);
+client.login(config.TOKEN);
 
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
 
-
-const link = "https://r6.tracker.network/profile/";
-const prefix = config.prefix;
+const PREFIX = config.PREFIX;
 
 
 
@@ -27,7 +25,7 @@ client.on("messageCreate", async message => {
 
     let args = message.content.toUpperCase().split(' ');
 
-    if (args[0] === `${prefix}R6`) {
+    if (args[0] === `${PREFIX}R6`) {
 
         let profile = [];
         let operators = [];
