@@ -1,5 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+const R6 = require('../r6/r6.js');
+const tracker = require('../r6/tracker.js');
+const embed = require('../r6/embed.js');
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('r6_stats')
@@ -8,9 +12,9 @@ module.exports = {
 			option.setName('platform')
 				.setDescription('game platform')
 				.setRequired(true)
-                .addChoice('pc', 'PC')
-                .addChoice('psn', 'PSN')
-                .addChoice('xbox', 'XBOX'))
+				.addChoice('pc', 'pc')
+				.addChoice('psn', 'psn')
+				.addChoice('xbox', 'xbox'))
 		.addStringOption(option => option.setName('name')
 			.setDescription('player name')
 			.setRequired(true))
@@ -23,5 +27,28 @@ module.exports = {
 				.addChoice('general', 'GENERAL'))
 	,
 	async execute(interaction) {
+		await interaction.deferReply();
+
+		let platform = interaction.options.getString("platform");
+		let name = interaction.options.getString("name");
+		let mode = interaction.options.getString("mode");
+
+		let profile = [];
+		let header;
+		let url_profile = `https://r6.tracker.network/profile/${platform}/${name}`;
+
+		profile = await tracker.Profile(profile, url_profile);
+		header = await tracker.Header(header, url_profile);
+		R6.R6_record(header, name, url_profile, profile);
+
+		if (mode === "RANK") {
+			return await interaction.editReply({ embeds: [embed.R6_help_operators()] });
+		}
+		else if (mode === "CASUAL") {
+			return await interaction.editReply({ embeds: [R6.Casual(profile)] });
+		}
+		else if (mode === "GENERAL") {
+			return await interaction.editReply({ embeds: [R6.General(profile)] });
+		}
 	}
 };
