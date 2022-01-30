@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const R6 = require('../r6/r6.js');
-const tracker = require('../r6/tracker.js');
+const R6 = require('../r6.js');
+const tracker = require('../tracker.js');
+const embed = require('../embed.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -34,9 +35,14 @@ module.exports = {
         let url_profile = `https://r6.tracker.network/profile/${platform}/${name}`;
         let url_operators = `https://r6.tracker.network/profile/${platform}/${name}/operators`;
 
-        operators = await tracker.Operators(operators, url_operators);
+        if(R6.OperatorCheck(operator.toUpperCase())){
+            operators = await tracker.Operators(operators, url_operators);
         R6.R6_record(header, name, url_profile, profile);
 
-        await interaction.editReply({ embeds: [R6.Operators(operators, operator.toUpperCase())] });
+        return await interaction.editReply({ embeds: [R6.Operators(operators, operator.toUpperCase())] });
+        }
+        else{
+            return await interaction.editReply({ embeds: [embed.R6_help_operators()] });
+        }
     }
 };
