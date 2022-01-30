@@ -16,7 +16,7 @@ git clone https://github.com/hmes98318/r6-discord-bot.git
 
 ### Install the package
 ```
-npm install discord.js axios cheerio  
+npm install discord.js @discordjs/rest axios cheerio  
 ```
 
 ### Modify `config.json`
