@@ -41,14 +41,19 @@ module.exports = {
 		header = await tracker.Header(header, url_profile);
 		R6.R6_record(header, name, url_profile, profile);
 
-		if (mode === "RANK") {
-			return await interaction.editReply({ embeds: [embed.R6_help_operators()] });
+		if(profile.length){
+			if (mode === "RANK") {
+				return await interaction.editReply({ embeds: [embed.R6_help_operators()] });
+			}
+			else if (mode === "CASUAL") {
+				return await interaction.editReply({ embeds: [R6.Casual(profile)] });
+			}
+			else if (mode === "GENERAL") {
+				return await interaction.editReply({ embeds: [R6.General(profile)] });
+			}
 		}
-		else if (mode === "CASUAL") {
-			return await interaction.editReply({ embeds: [R6.Casual(profile)] });
-		}
-		else if (mode === "GENERAL") {
-			return await interaction.editReply({ embeds: [R6.General(profile)] });
+		else{
+			return interaction.editReply({ embeds: [embed.R6_Not_Found()] });
 		}
 	}
 };
