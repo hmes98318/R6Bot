@@ -1,8 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const R6 = require('../r6/r6.js');
-const tracker = require('../r6/tracker.js');
-const embed = require('../r6/embed.js');
+const R6 = require('../r6.js');
+const tracker = require('../tracker.js');
+const embed = require('../embed.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -53,7 +53,7 @@ module.exports = {
 			}
 		}
 		else{
-			return interaction.editReply({ embeds: [embed.R6_Not_Found()] });
+			return await interaction.editReply({ embeds: [embed.R6_Not_Found()] });
 		}
 	}
 };
