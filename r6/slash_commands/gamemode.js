@@ -15,9 +15,10 @@ module.exports = {
 				.addChoice('pc', 'pc')
 				.addChoice('psn', 'psn')
 				.addChoice('xbox', 'xbox'))
-		.addStringOption(option => option.setName('name')
-			.setDescription('player name')
-			.setRequired(true))
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('player name')
+				.setRequired(true))
 		.addStringOption(option =>
 			option.setName('mode')
 				.setDescription('game mode Rank, Casual, General')
@@ -30,7 +31,7 @@ module.exports = {
 		await interaction.deferReply();
 
 		let platform = interaction.options.getString("platform");
-		let name = interaction.options.getString("name");
+		let name = interaction.options.getString("name").replace(/\s/g, '%20');
 		let mode = interaction.options.getString("mode");
 
 		let profile = [];
@@ -41,9 +42,9 @@ module.exports = {
 		header = await tracker.Header(header, url_profile);
 		R6.R6_record(header, name, url_profile, profile);
 
-		if(profile.length){
+		if (profile.length) {
 			if (mode === "RANK") {
-				return await interaction.editReply({ embeds: [embed.R6_help_operators()] });
+				return await interaction.editReply({ embeds: [R6.Rank(profile)] });
 			}
 			else if (mode === "CASUAL") {
 				return await interaction.editReply({ embeds: [R6.Casual(profile)] });
@@ -52,7 +53,7 @@ module.exports = {
 				return await interaction.editReply({ embeds: [R6.General(profile)] });
 			}
 		}
-		else{
+		else {
 			return await interaction.editReply({ embeds: [embed.R6_Not_Found()] });
 		}
 	}
