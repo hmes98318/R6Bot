@@ -14,7 +14,7 @@ Rainbow Six Siege stats Discord Bot
 https://github.com/hmes98318/r6-discord-bot/releases/tag/1.2.3
 ```
 
-### Install the package
+### Install the depedences
 ```
 npm install discord.js @discordjs/rest axios cheerio  
 ```
