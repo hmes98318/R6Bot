@@ -1,4 +1,4 @@
-# R6s Discord Bot
+# R6Bot
 Rainbow Six Siege stats Discord Bot   
 
 ### Reference version  
@@ -22,21 +22,28 @@ npm install discord.js @discordjs/rest axios cheerio
 ### Modify `config.json`
 ```json
 {
-    "TOKEN": "yourToken",
-    "GUILD_ID": "yourGuildID",
-    "CLIENT_ID": "yourClientID",
+    "TOKEN": "",
+    "CLIENT_ID": "",
+    "GUILD_ID": "",
+    "Txt_Commands": true,
+    "Slash_Commands": true,
+    "load_Slash_Global": false,
     "PREFIX": "+",
-    "NAME": "r6-discord-bot"
+    "name": "R6Bot"
 }
 ```
 
-# Running the script 
+## Running the script 
 
 ```
 node index.js
 ```
 
-# Command
+## Command
+If you don't want txt commands or slash commands you can revise `./config.json`  
+if `load_Slash_Global` is `false` only valid in that Guild,  
+otherwise that will valid in all Guild.
+
 
 get profile
 ```
@@ -57,8 +64,6 @@ get help
 ```
 +r6 help
 ```
-
-
 
 
 
