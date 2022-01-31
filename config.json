@@ -1,7 +1,9 @@
 {
     "TOKEN": "yourToken",
-    "GUILD_ID": "yourGuildID",
     "CLIENT_ID": "yourClientID",
+    "GUILD_ID": "yourGuildID",
+    "Txt_Commands": true,
+    "Slash_Commands": true,
     "PREFIX": "+",
-    "NAME": "r6-discord-bot"
+    "name": "r6-discord-bot"
 }
