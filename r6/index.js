@@ -18,11 +18,6 @@ module.exports = function (TOKEN, CLIENT_ID, GUILD_ID, PREFIX) {
     client.login(TOKEN);
 
 
-    client.on('ready', () => {
-        //console.log(`Logged in as ${client.user.tag}`);
-        console.log(`txt command is ready`);
-    });
-
     if (config.Slash_Commands) {
 
         // Loading commands from the commands folder
@@ -83,6 +78,12 @@ module.exports = function (TOKEN, CLIENT_ID, GUILD_ID, PREFIX) {
     }
 
     if (config.Txt_Commands) {
+
+        client.on('ready', () => {
+            //console.log(`Logged in as ${client.user.tag}`);
+            console.log(`txt command is ready`);
+        });
+
 
         client.on("messageCreate", async message => {
 
@@ -159,6 +160,4 @@ module.exports = function (TOKEN, CLIENT_ID, GUILD_ID, PREFIX) {
             }
         })
     }
-
-
 }
