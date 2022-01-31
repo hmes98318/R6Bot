@@ -48,7 +48,7 @@ module.exports = function (TOKEN, CLIENT_ID, GUILD_ID, PREFIX) {
                 .setToken(TOKEN);
             (async () => {
                 try {
-                    if (!GUILD_ID) {
+                    if (config.load_Slash_Global) {
                         await rest.put(
                             Routes.applicationCommands(CLIENT_ID),
                             { body: commands },
