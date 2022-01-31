@@ -9,9 +9,9 @@ Rainbow Six Siege stats Discord Bot
   
 # Installation
 
-### Download the package
+### Clone the repository
 ```
-https://github.com/hmes98318/r6-discord-bot/releases/tag/1.2.3
+git clone https://github.com/hmes98318/r6-discord-bot.git
 ```
 
 ### Install the depedences
