@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hmes98318/r6-discord-bot.git"
+    "url": "git+https://github.com/hmes98318/R6Bot.git"
   },
   "author": "hmes98318",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hmes98318/r6-discord-bot/issues"
+    "url": "https://github.com/hmes98318/R6Bot/issues"
   },
-  "homepage": "https://github.com/hmes98318/r6-discord-bot#readme",
+  "homepage": "https://github.com/hmes98318/R6Bot#readme",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
     "axios": "^0.25.0",
