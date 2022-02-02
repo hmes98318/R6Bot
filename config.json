@@ -2,7 +2,7 @@
     "TOKEN": "yourToken",
     "CLIENT_ID": "yourClientID",
     "GUILD_ID": "yourGuildID",
-    "Txt_Commands": true,
+    "Text_Commands": true,
     "Slash_Commands": true,
     "load_Slash_Global": false,
     "PREFIX": "+",
