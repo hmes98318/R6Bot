@@ -1,10 +1,11 @@
-{ 
+{
     "TOKEN": "yourToken",
     "CLIENT_ID": "yourClientID",
     "GUILD_ID": "yourGuildID",
     "Text_Commands": true,
     "Slash_Commands": true,
     "load_Slash_Global": false,
+    "tracker_timeout": 5000,
     "PREFIX": "+",
     "name": "R6Bot"
 }
