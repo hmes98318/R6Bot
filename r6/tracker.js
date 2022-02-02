@@ -1,9 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const R6 = require('./r6.js');
+const { tracker_timeout } = require('../config.json');
 
-
-axios.default.defaults.timeout = 5000;
+axios.default.defaults.timeout = tracker_timeout;
 
 
 module.exports = {
