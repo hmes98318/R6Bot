@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const R6 = require('../r6.js');
 const tracker = require('../tracker.js');
-const embed = require('../embed.js');
+const embed = require('../embeds/embeds.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
