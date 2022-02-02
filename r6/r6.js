@@ -1,4 +1,4 @@
-const embed = require('./embed.js');
+const embed = require('./embeds/embeds.js');
 const record = require('./r6_record');
 const base = require('./base.json');
 
