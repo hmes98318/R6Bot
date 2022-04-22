@@ -1,5 +1,7 @@
 # R6Bot
-Rainbow Six Siege stats Discord Bot   
+Rainbow Six Siege stats Discord Bot 
+
+### New version coming soon  
 
 ### Reference version  
 **node.js  `v16.13.2`**  
