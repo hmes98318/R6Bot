@@ -3,159 +3,179 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Intents, Collection } = require('discord.js');
 
-const R6 = require('./r6/r6.js');
-const embed = require('./r6/embeds/embeds.js');
-const tracker = require('./r6/tracker.js');
-const { TOKEN, CLIENT_ID, GUILD_ID, PREFIX, Slash_Commands, Text_Commands, load_Slash_Global } = require('./config.json');
+const R6 = require('r6s-stats-api');
+const embeds = require('./src/embeds/embeds.js');
 
-
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+require('dotenv').config();
+const config = require('./config.json');
 
 
 
 
-client.login(TOKEN);
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES
+    ]
+});
+
+client.login(process.env.TOKEN);
 
 
-if (Slash_Commands) {
-
-    // Loading commands from the commands folder
-    const commands = [];
-    const commandFiles = fs.readdirSync('./r6/slash_commands').filter(file => file.endsWith('.js'));
 
 
-    // Creating a collection for commands in client
-    client.commands = new Collection();
-
-    for (const file of commandFiles) {
-        const command = require(`./r6/slash_commands/${file}`);
-        commands.push(command.data.toJSON());
-        client.commands.set(command.data.name, command);
-    }
+client.on('ready', () => {
+    //console.log(`Logged in as ${client.user.tag}`);
+    console.log(`txt command is ready`);
+});
 
 
-    client.once('ready', () => {
-        //console.log(`Logged in as ${client.user.tag}`);
-        console.log(`slash command is ready`);
+client.on("messageCreate", async message => {
 
-        const rest = new REST({ version: '9' })
-            .setToken(TOKEN);
-        (async () => {
-            try {
-                if (load_Slash_Global) {
-                    await rest.put(
-                        Routes.applicationCommands(CLIENT_ID),
-                        { body: commands },
-                    );
-                    console.log('Successfully registered application commands globally');
-                }
-                else {
-                    await rest.put(
-                        Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
-                        { body: commands },
-                    );
-                    console.log('Successfully registered application commands for development guild');
-                }
-            } catch (error) {
-                if (error) console.error(error);
-            }
-        })();
-    });
+    if (message.author.bot) // if the message sender is bot
+        return;
+
+    if (message.content.indexOf(config.PREFIX) !== 0) // if the config.PREFIX not in message.content[0]
+        return;
 
 
-    client.on('interactionCreate', async interaction => {
-        if (!interaction.isCommand()) return;
-        const command = client.commands.get(interaction.commandName);
-        if (!command) return;
-        try {
-            await command.execute(interaction);
-        } catch (error) {
-            if (error) console.error(error);
-            await interaction.reply({ content: 'There was an error while executing this command', ephemeral: true });
+    let args = message.content.slice(config.PREFIX.length).trim().split(/ +/g);
+    let first_element = args.shift();
+
+    if (first_element.toUpperCase() === "R6") {
+        message.channel.sendTyping();
+
+        if(!args[0])
+            return message.channel.send({ embeds: [embeds.Help()] });
+
+        let option = args[0].toUpperCase();
+
+        if (option === "HELP") { // +R6 help
+            console.log("HELP");
+            return message.channel.send({ embeds: [embeds.Help()] });
         }
-    });
-}
 
-if (Text_Commands) {
-
-    client.on('ready', () => {
-        //console.log(`Logged in as ${client.user.tag}`);
-        console.log(`txt command is ready`);
-    });
-
-
-    client.on("messageCreate", async message => {
-
-        let args = message.content.toUpperCase().split(' ');
-
-        if (args[0] === `${PREFIX}R6`) {
-
-            let profile = [];
-            let operators = [];
-            let header;
-
-            let gameplatform = message.content.split(' ')[1]
-            let r6name = message.content.split(' ')[2];
-            let url_profile = `https://r6.tracker.network/profile/${gameplatform}/${r6name}`;
-            let url_operators = `https://r6.tracker.network/profile/${gameplatform}/${r6name}/operators`;
-
-            message.channel.sendTyping();
-
-            if (args[1] === "HELP") { // +R6 help
-                console.log("HELP");
-                return message.channel.send({ embeds: [embed.R6_help()] });
-            }
-
-            else if (args[1] !== "PC" && args[1] !== "XBOX" && args[1] !== "PSN" && args[1] !== "PS4" && args[1] !== "PS5") {
-                console.log(PLATFORM, "PLATFORM_ERROR"); // if enter platform not pc/xbox/osn
-                return message.channel.send({ embeds: [embed.R6_help_platform()] });
-            }
-
-            else if (args[3] === "OPERATOR") { // +R6 [platform] [name] operator ash/lesion...
-                console.log("OPERATORS");
-                if (R6.OperatorCheck(args[4])) {
-                    operators = await tracker.Operators(operators, url_operators);
-                    R6.R6_record(header, r6name, url_profile, profile);
-                    return message.channel.send({ embeds: [R6.Operators(operators, args[4])] });
-                }
-                else {
-                    return message.channel.send({ embeds: [embed.R6_help_operators()] });
-                }
-            }
-
-            else if (args[2] && (!args[3] || args[3] === "RANK" || args[3] === "CASUAL")) { // +R6 [platform] [name]  || +R6 [platform] [name] rank/casual
-
-                profile = await tracker.Profile(profile, url_profile);
-                header = await tracker.Header(header, url_profile);
-                R6.R6_record(header, r6name, url_profile, profile);
-
-                if (profile.length) { //Check if the searched player is correct (exists)
-                    if (args[3] === "RANK") {
-                        console.log("PROFILE_RANK");
-                        return message.channel.send({ embeds: [R6.Rank(profile)] });
-                    }
-                    else if (args[3] === "CASUAL") {
-                        console.log("PROFILE_CASUAL");
-                        return message.channel.send({ embeds: [R6.Casual(profile)] });
-                    }
-                    else { // GENERAL
-                        console.log("PROFILE_GENERAL");
-                        return message.channel.send({ embeds: [R6.General(profile)] });
-                    }
-                }
-                else {
-                    console.log("PROFILE_NOT_FOUND");
-                    return message.channel.send({ embeds: [embed.R6_Not_Found()] });
-                }
-            }
-            else if (args[2] && args[3]) {
-                console.log("FORMAT_ERROR");
-                return message.channel.send({ embeds: [embed.R6_help()] });
+        if (option !== "PC" && option !== "XBOX" && option !== "PSN" && option !== "PS4" && option !== "PS5") {
+            if (config.ENABLE_DEFAULT_PLATFORM) { // enble default platform
+                args.splice(0, 0, config.DEFAULT_PLATFORM);
             }
             else {
-                console.log("NOT_FOUND");
-                return message.channel.send({ embeds: [embed.R6_Not_Found()] });
+                console.log("PLATFORM_ERROR"); // if enter platform not pc/xbox/osn
+                return message.channel.send({ embeds: [embeds.Help_platform()] });
             }
         }
-    })
-}
+
+
+        let input_platform = args[0];
+        let input_name = args[1];
+        let input_gamemode = args[2];
+        let input_operator = args[3];
+
+        console.log("args:", args);
+        console.log("input_platform:", input_platform);
+        console.log("input_name:", input_name);
+        console.log("input_gamemode:", input_gamemode);
+        console.log("input_operator:", input_operator);
+
+
+        if (!input_gamemode) {
+            console.log("GENERAL");
+            let profile = await R6.general(input_platform, input_name);
+            console.log(profile);
+
+            if (profile === "NOT_FOUND")
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
+            else//                                                            header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,         death,          headshot,         headShots,          meleeKills,          blindKills
+                return message.channel.send({ embeds: [embeds.General(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.death, profile.headshot_, profile.headshots, profile.melee_kills, profile.blind_kills)] });
+        }
+
+
+        if (input_gamemode.toUpperCase() === "CASUAL") {
+            console.log("CASUAL");
+            let profile = await R6.casual(input_platform, input_name);
+            console.log(profile);
+
+            if (profile === "NOT_FOUND")
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
+            else//                                                                   header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,          death,           killMatch,         rank,         mmr,         rank_img
+                return message.channel.send({ embeds: [embeds.Casual(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.rank, profile.mmr, profile.rank_img)] });
+        }
+
+        else if (input_gamemode.toUpperCase() === "RANK") {
+            console.log("RANK");
+            let profile = await R6.rank(input_platform, input_name);
+            console.log(profile);
+
+            if (profile === "NOT_FOUND")
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
+            else//                                                         header,         user,         url,         time_played,  win_percent,          win,         loss,           kd,         kill,      death,        killMatch,           rank,                mmr,    rank_img
+                return message.channel.send({ embeds: [embeds.Rank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.rank, profile.mmr, profile.rank_img)] });
+        }
+
+        else if (input_gamemode.toUpperCase() === "UNRANK") {
+            console.log("UNRANK");
+            let profile = await R6.unrank(input_platform, input_name);
+            console.log(profile);
+
+            if (profile === "NOT_FOUND")
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
+            else
+                return message.channel.send({ embeds: [embeds.Unrank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.matches)] });
+        }
+
+        else if (input_gamemode.toUpperCase() === "DEATHMATCH") {
+            console.log("DEATHMATCH");
+            let profile = await R6.deathmatch(input_platform, input_name);
+            console.log(profile);
+
+            if (profile === "NOT_FOUND")
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
+            else
+                return message.channel.send({ embeds: [embeds.Deathmatch(profile.header, profile.name, profile.url, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.matches, profile.abandons, profile.rank, profile.mmr, profile.rank_img)] });
+        }
+
+        else if (input_gamemode.toUpperCase() === "OPERATOR") {
+            console.log("OPERATOR");
+
+            if (!input_operator)
+                return message.channel.send({ embeds: [embeds.Help_operator()] });
+
+            let profile = await R6.operator(input_platform, input_name, input_operator);
+            console.log(profile);
+
+            if (profile === "NOT_FOUND")
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
+            else//                                                                            header,         user,         url,         operator,          timePlayed,          kill,          death,         kd,          win,           loss, win_percent,            headshot,         DBNOs,         XP,          meleeKills,         operatorStat
+                return message.channel.send({ embeds: [embeds.Operator(profile.operator_img, profile.name, profile.url, profile.operator, profile.time_played, profile.kills, profile.deaths, profile.kd, profile.wins, profile.losses, profile.win_, profile.headshots_, profile.dbnos, profile.xp, profile.melee_kills, profile.operator_stat)] });
+        }
+
+        else
+            return message.channel.send({ embeds: [embeds.Help()] });
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
