@@ -1,8 +1,11 @@
 const Discord = require('discord.js');
+const config = require('../../../../config.json');
+
+const prefix = config.PREFIX;
 
 module.exports = function () {
     const trackerEmbed = new Discord.MessageEmbed()
-        .setColor('#ff00ee')
+        .setColor(config.COLOR)
         .addFields(
             {
                 name: 'R6 Tracker', value: 
@@ -16,7 +19,7 @@ module.exports = function () {
                 castle, tachanka, pulse, kapkan, clash, echo, vigil, 
                 maestro, goyo, oryx, mozzie, warden, osa`, inline: true
             },
-            { name: 'example:', value: `+r6 pc waifu\\_-. operator ash`, inline: false },
+            { name: 'example:', value: `${prefix}r6 pc waifu\\_-. operator ash`, inline: false },
         )
 
     return trackerEmbed;
