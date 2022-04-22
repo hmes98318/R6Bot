@@ -1,11 +1,7 @@
 {
-    "TOKEN": "yourToken",
-    "CLIENT_ID": "yourClientID",
-    "GUILD_ID": "yourGuildID",
-    "Text_Commands": true,
-    "Slash_Commands": true,
-    "load_Slash_Global": false,
-    "tracker_timeout": 5000,
+    "name": "R6Bot",
     "PREFIX": "+",
-    "name": "R6Bot"
+    "COLOR":"#ff00ee",
+    "ENABLE_DEFAULT_PLATFORM": true,
+    "DEFAULT_PLATFORM": "pc"
 }
