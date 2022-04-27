@@ -19,14 +19,75 @@ const client = new Client({
     ]
 });
 
-client.login(process.env.TOKEN);
+const TOKEN = process.env.TOKEN;
+client.login(TOKEN);
 
 
 
 
 client.on('ready', () => {
-    //console.log(`Logged in as ${client.user.tag}`);
-    console.log(`txt command is ready`);
+    console.log(`-- Logged in as ${client.user.tag} --`);
+    console.log(`text command is ready`);
+
+
+    if (config.SLASH_COMMANDS) {
+        const CLIENT_ID = client.user.id;
+        const GUILD_ID = config.GUILD_ID;
+
+        // Loading commands from the commands folder
+        const commands = [];
+        const commandFiles = fs.readdirSync('./src/slash_commands').filter(file => file.endsWith('.js'));
+
+
+        // Creating a collection for commands in client
+        client.commands = new Collection();
+
+        for (const file of commandFiles) {
+            const command = require(`./src/slash_commands/${file}`);
+            commands.push(command.data.toJSON());
+            client.commands.set(command.data.name, command);
+        }
+
+
+        const rest = new REST({ version: '9' })
+            .setToken(TOKEN);
+        (async () => {
+            try {
+                if (config.LOAD_SLASH_GLOBAL) {
+                    await rest.put(
+                        Routes.applicationCommands(CLIENT_ID),
+                        { body: commands },
+                    );
+                    console.log('Successfully registered application commands globally');
+                }
+                else {
+                    await rest.put(
+                        Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
+                        { body: commands },
+                    );
+                    console.log('Successfully registered application commands for development guild');
+                }
+            } catch (error) {
+                if (error) console.error(error);
+            }
+        })();
+        console.log(`slash command is ready`);
+    }
+});
+
+
+
+
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isCommand()) return;
+    const command = client.commands.get(interaction.commandName);
+    if (!command) return;
+    try {
+        await command.execute(interaction, client);
+    } catch (error) {
+        if (error) console.error(error);
+        await interaction.reply({ content: 'There was an error while executing this command', ephemeral: true });
+    }
 });
 
 
@@ -45,7 +106,7 @@ client.on("messageCreate", async message => {
     if (first_element.toUpperCase() === "R6") {
         message.channel.sendTyping();
 
-        if(!args[0])
+        if (!args[0])
             return message.channel.send({ embeds: [embeds.Help()] });
 
         let option = args[0].toUpperCase();
@@ -81,57 +142,57 @@ client.on("messageCreate", async message => {
         if (!input_gamemode) {
             console.log("GENERAL");
             let profile = await R6.general(input_platform, input_name);
-            console.log(profile);
+            //console.log(profile);
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                            header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,         deaths,          headshot,         headShots,          meleekills,          blindkills
-                return message.channel.send({ embeds: [embeds.General(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.headshot_, profile.headshots, profile.melee_kills, profile.blind_kills)] });
+            else
+                return message.channel.send({ embeds: [embeds.General(profile)] });
         }
 
 
         if (input_gamemode.toUpperCase() === "CASUAL") {
             console.log("CASUAL");
             let profile = await R6.casual(input_platform, input_name);
-            console.log(profile);
+            //console.log(profile);
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                           header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,          deaths,           killMatch,         rank,         mmr,         rank_img
-                return message.channel.send({ embeds: [embeds.Casual(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.rank, profile.mmr, profile.rank_img)] });
+            else
+                return message.channel.send({ embeds: [embeds.Casual(profile)] });
         }
 
         else if (input_gamemode.toUpperCase() === "RANK") {
             console.log("RANK");
             let profile = await R6.rank(input_platform, input_name);
-            console.log(profile);
+            //console.log(profile);
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                         header,         name,         url,          timePlayed,         win_,         wins,         losses,         kd,         kills,         deaths,          killsMatch,         rank,         mmr,         rank_img
-                return message.channel.send({ embeds: [embeds.Rank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.rank, profile.mmr, profile.rank_img)] });
+            else
+                return message.channel.send({ embeds: [embeds.Rank(profile)] });
         }
 
         else if (input_gamemode.toUpperCase() === "UNRANK") {
             console.log("UNRANK");
             let profile = await R6.unrank(input_platform, input_name);
-            console.log(profile);
+            //console.log(profile);
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
             else
-                return message.channel.send({ embeds: [embeds.Unrank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.matches)] });
+                return message.channel.send({ embeds: [embeds.Unrank(profile)] });
         }
 
         else if (input_gamemode.toUpperCase() === "DEATHMATCH") {
             console.log("DEATHMATCH");
             let profile = await R6.deathmatch(input_platform, input_name);
-            console.log(profile);
+            //console.log(profile);
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
             else
-                return message.channel.send({ embeds: [embeds.Deathmatch(profile.header, profile.name, profile.url, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.matches, profile.abandons, profile.rank, profile.mmr, profile.rank_img)] });
+                return message.channel.send({ embeds: [embeds.Deathmatch(profile)] });
         }
 
         else if (input_gamemode.toUpperCase() === "OPERATOR") {
@@ -141,12 +202,12 @@ client.on("messageCreate", async message => {
                 return message.channel.send({ embeds: [embeds.Help_operator()] });
 
             let profile = await R6.operator(input_platform, input_name, input_operator);
-            console.log(profile);
+            //console.log(profile);
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                                            header,         user,         url,         operator,          timePlayed,          kill,          deaths,         kd,          win,           loss, win_percent,            headshot,         DBNOs,         XP,          meleekills,         operatorStat
-                return message.channel.send({ embeds: [embeds.Operator(profile.operator_img, profile.name, profile.url, profile.operator, profile.time_played, profile.kills, profile.deaths, profile.kd, profile.wins, profile.losses, profile.win_, profile.headshots_, profile.dbnos, profile.xp, profile.melee_kills, profile.operator_stat)] });
+            else
+                return message.channel.send({ embeds: [embeds.Operator(profile)] });
         }
 
         else
