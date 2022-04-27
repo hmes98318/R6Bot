@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const R6 = require('../r6.js');
-const tracker = require('../tracker.js');
+const R6 = require('r6s-stats-api');
 const embed = require('../embeds/embeds.js');
 
 module.exports = {

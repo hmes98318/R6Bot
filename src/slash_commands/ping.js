@@ -4,7 +4,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Replies with pong'),
-	async execute(interaction) {
-		interaction.reply({ content: `Ping : ${Date.now() - interaction.createdTimestamp}ms.` })
+	async execute(interaction, client) {
+		interaction.reply({ content: `Ping : ${client.ws.ping}ms.` })
 	}
 };
