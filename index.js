@@ -85,8 +85,8 @@ client.on("messageCreate", async message => {
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                            header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,         death,          headshot,         headShots,          meleeKills,          blindKills
-                return message.channel.send({ embeds: [embeds.General(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.death, profile.headshot_, profile.headshots, profile.melee_kills, profile.blind_kills)] });
+            else//                                                            header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,         deaths,          headshot,         headShots,          meleekills,          blindkills
+                return message.channel.send({ embeds: [embeds.General(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.headshot_, profile.headshots, profile.melee_kills, profile.blind_kills)] });
         }
 
 
@@ -97,8 +97,8 @@ client.on("messageCreate", async message => {
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                                   header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,          death,           killMatch,         rank,         mmr,         rank_img
-                return message.channel.send({ embeds: [embeds.Casual(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.rank, profile.mmr, profile.rank_img)] });
+            else//                                                           header,         user,         url,          timePlayed,  win_percent,          win,           loss,         kd,          kill,          deaths,           killMatch,         rank,         mmr,         rank_img
+                return message.channel.send({ embeds: [embeds.Casual(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.rank, profile.mmr, profile.rank_img)] });
         }
 
         else if (input_gamemode.toUpperCase() === "RANK") {
@@ -108,8 +108,8 @@ client.on("messageCreate", async message => {
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                         header,         user,         url,         time_played,  win_percent,          win,         loss,           kd,         kill,      death,        killMatch,           rank,                mmr,    rank_img
-                return message.channel.send({ embeds: [embeds.Rank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.rank, profile.mmr, profile.rank_img)] });
+            else//                                                         header,         name,         url,          timePlayed,         win_,         wins,         losses,         kd,         kills,         deaths,          killsMatch,         rank,         mmr,         rank_img
+                return message.channel.send({ embeds: [embeds.Rank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.rank, profile.mmr, profile.rank_img)] });
         }
 
         else if (input_gamemode.toUpperCase() === "UNRANK") {
@@ -120,7 +120,7 @@ client.on("messageCreate", async message => {
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
             else
-                return message.channel.send({ embeds: [embeds.Unrank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.matches)] });
+                return message.channel.send({ embeds: [embeds.Unrank(profile.header, profile.name, profile.url, profile.time_played, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.matches)] });
         }
 
         else if (input_gamemode.toUpperCase() === "DEATHMATCH") {
@@ -131,7 +131,7 @@ client.on("messageCreate", async message => {
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
             else
-                return message.channel.send({ embeds: [embeds.Deathmatch(profile.header, profile.name, profile.url, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.Kills_match, profile.matches, profile.abandons, profile.rank, profile.mmr, profile.rank_img)] });
+                return message.channel.send({ embeds: [embeds.Deathmatch(profile.header, profile.name, profile.url, profile.win_, profile.wins, profile.losses, profile.kd, profile.kills, profile.deaths, profile.kills_match, profile.matches, profile.abandons, profile.rank, profile.mmr, profile.rank_img)] });
         }
 
         else if (input_gamemode.toUpperCase() === "OPERATOR") {
@@ -145,7 +145,7 @@ client.on("messageCreate", async message => {
 
             if (profile === "NOT_FOUND")
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else//                                                                            header,         user,         url,         operator,          timePlayed,          kill,          death,         kd,          win,           loss, win_percent,            headshot,         DBNOs,         XP,          meleeKills,         operatorStat
+            else//                                                                            header,         user,         url,         operator,          timePlayed,          kill,          deaths,         kd,          win,           loss, win_percent,            headshot,         DBNOs,         XP,          meleekills,         operatorStat
                 return message.channel.send({ embeds: [embeds.Operator(profile.operator_img, profile.name, profile.url, profile.operator, profile.time_played, profile.kills, profile.deaths, profile.kd, profile.wins, profile.losses, profile.win_, profile.headshots_, profile.dbnos, profile.xp, profile.melee_kills, profile.operator_stat)] });
         }
 
