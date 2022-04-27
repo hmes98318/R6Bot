@@ -1,7 +1,10 @@
 {
     "name": "R6Bot",
-    "PREFIX": "+",
+    "PREFIX": "-",
     "COLOR":"#ff00ee",
     "ENABLE_DEFAULT_PLATFORM": true,
-    "DEFAULT_PLATFORM": "pc"
+    "DEFAULT_PLATFORM": "pc",
+    "SLASH_COMMANDS":true,
+    "GUILD_ID":"your_GUILD_ID",
+    "LOAD_SLASH_GLOBAL": false
 }
