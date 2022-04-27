@@ -14,7 +14,7 @@ module.exports = function (header, name, url, timePlayed, win_, wins, losses, kd
             { name: 'MMR', value: `**${mmr}**`, inline: true },
             { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
             { name: '\u200B', value: '\u200B' },
-            { name: 'Win/Loss', value: `**${win_}%**\nWins **${wins}**\nLosses **${losses}**`, inline: true },
+            { name: 'Win/Loss', value: `**${win_}**\nWins **${wins}**\nLosses **${losses}**`, inline: true },
             { name: 'K/D', value: `**${kd}**\nKills **${kills}**\nDeaths **${deaths}**`, inline: true },
             { name: 'Kills/Match', value: `**${killsMatch}**`, inline: true },
         )
