@@ -1,22 +1,22 @@
 const Discord = require('discord.js');
 const color = require('../../../config.json').COLOR;
 
-module.exports = function (header, name, url, timePlayed, win_, wins, losses, kd, kills, deaths, headshot_, headshots, meleeKills, blindKills) {
+module.exports = function (profile) {
     const trackerEmbed = new Discord.MessageEmbed()
         .setColor(color)
-        .setTitle(`Open ${name} profile`)
-        .setURL(url)
-        .setAuthor({ name: name, iconURL: header, url: url })
+        .setTitle(`Open ${profile.name} profile`)
+        .setURL(profile.url)
+        .setAuthor({ name: profile.name, iconURL: profile.header, url: profile.url })
         .setDescription('General')
-        .setThumbnail(header)
+        .setThumbnail(profile.header)
         .addFields(
-            { name: 'Win/Loss', value: `**${win_}**\nWins **${wins}**\nLosses **${losses}**`, inline: true },
-            { name: 'K/D', value: `**${kd}**\n\Kills **${kills}**\n\Deaths **${deaths}**`, inline: true },
-            { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
+            { name: 'Win/Loss', value: `**${profile.win_}**\nWins **${profile.wins}**\nLosses **${profile.losses}**`, inline: true },
+            { name: 'K/D', value: `**${profile.kd}**\n\Kills **${profile.kills}**\n\Deaths **${profile.deaths}**`, inline: true },
+            { name: 'Time Played', value: `**${profile.time_played}**`, inline: true },
             { name: '\u200B', value: '\u200B' },
-            { name: 'Head Shot', value: `**${headshot_}**\nHead Shots **${headshots}**`, inline: true },
-            { name: 'Melee Kills', value: `**${meleeKills}**`, inline: true },
-            { name: 'Blind Kills', value: `**${blindKills}**`, inline: true },
+            { name: 'Head Shot', value: `**${profile.headshot_}**\nHead Shots **${profile.headshots}**`, inline: true },
+            { name: 'Melee Kills', value: `**${profile.melee_kills}**`, inline: true },
+            { name: 'Blind Kills', value: `**${profile.blind_kills}**`, inline: true },
         )
         .setTimestamp();
 

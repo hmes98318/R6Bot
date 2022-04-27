@@ -1,21 +1,21 @@
 const Discord = require('discord.js');
 const color = require('../../../config.json').COLOR;
 
-module.exports = function (header, name, url, timePlayed, win_, wins, losses, kd, kills, deaths, killsMatch, matches) {
+module.exports = function (profile) {
     const trackerEmbed = new Discord.MessageEmbed()
         .setColor(color)
-        .setTitle(`Open ${name} profile`)
-        .setURL(url)
-        .setAuthor({ name: name, iconURL: header, url: url })
+        .setTitle(`Open ${profile.name} profile`)
+        .setURL(profile.url)
+        .setAuthor({ name: profile.name, iconURL: profile.header, url: profile.url })
         .setDescription('Unrank')
         .setThumbnail("https://imgur.com/PvLQN8r.png")
         .addFields(
-            { name: 'Win/Loss', value: `**${win_}%**\nWin **${wins}**\nLoss **${losses}**`, inline: true },
-            { name: 'K/D', value: `**${kd}**\nKills **${kills}**\nDeaths **${deaths}**`, inline: true },
-            { name: 'Time Played', value: `**${timePlayed}**`, inline: true },
+            { name: 'Win/Loss', value: `**${profile.win_}**\nWin **${profile.wins}**\nLoss **${profile.losses}**`, inline: true },
+            { name: 'K/D', value: `**${profile.kd}**\nKills **${profile.kills}**\nDeaths **${profile.deaths}**`, inline: true },
+            { name: 'Time Played', value: `**${profile.time_played}**`, inline: true },
             { name: '\u200B', value: '\u200B' },
-            { name: 'Kills/Match', value: `**${killsMatch}**`, inline: true },
-            { name: 'Matches', value: `**${matches}**`, inline: true },
+            { name: 'Kills/Match', value: `**${profile.kills_match}**`, inline: true },
+            { name: 'Matches', value: `**${profile.matches}**`, inline: true },
         )
         .setTimestamp();
 
