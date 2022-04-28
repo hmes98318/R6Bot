@@ -28,6 +28,7 @@ client.login(TOKEN);
 client.on('ready', () => {
     console.log(`-- Logged in as ${client.user.tag} --`);
     console.log(`text command is ready`);
+    client.user.setActivity(`${config.PREFIX}r6 help`);
 
 
     if (config.SLASH_COMMANDS) {
@@ -214,29 +215,3 @@ client.on("messageCreate", async message => {
             return message.channel.send({ embeds: [embeds.Help()] });
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
