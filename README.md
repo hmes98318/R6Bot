@@ -20,7 +20,7 @@
 
 ### Clone the repository
 ```
-git clone -b v2.0.0 https://github.com/hmes98318/r6-discord-bot.git
+git clone -b v2.0.0 https://github.com/hmes98318/R6Bot.git
 ```
 
 ### Install the depedences  
