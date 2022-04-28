@@ -145,10 +145,10 @@ client.on("messageCreate", async message => {
             let profile = await R6.general(input_platform, input_name);
             //console.log(profile);
 
-            if (profile === "NOT_FOUND")
-                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else
+            if (profile.header)
                 return message.channel.send({ embeds: [embeds.General(profile)] });
+            else
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
 
 
@@ -157,10 +157,10 @@ client.on("messageCreate", async message => {
             let profile = await R6.casual(input_platform, input_name);
             //console.log(profile);
 
-            if (profile === "NOT_FOUND")
-                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else
+            if (profile.header)
                 return message.channel.send({ embeds: [embeds.Casual(profile)] });
+            else
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
 
         else if (input_gamemode.toUpperCase() === "RANK") {
@@ -168,10 +168,10 @@ client.on("messageCreate", async message => {
             let profile = await R6.rank(input_platform, input_name);
             //console.log(profile);
 
-            if (profile === "NOT_FOUND")
-                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else
+            if (profile.header)
                 return message.channel.send({ embeds: [embeds.Rank(profile)] });
+            else
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
 
         else if (input_gamemode.toUpperCase() === "UNRANK") {
@@ -179,10 +179,10 @@ client.on("messageCreate", async message => {
             let profile = await R6.unrank(input_platform, input_name);
             //console.log(profile);
 
-            if (profile === "NOT_FOUND")
-                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else
+            if (profile.header)
                 return message.channel.send({ embeds: [embeds.Unrank(profile)] });
+            else
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
 
         else if (input_gamemode.toUpperCase() === "DEATHMATCH") {
@@ -190,10 +190,10 @@ client.on("messageCreate", async message => {
             let profile = await R6.deathmatch(input_platform, input_name);
             //console.log(profile);
 
-            if (profile === "NOT_FOUND")
-                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else
+            if (profile.header)
                 return message.channel.send({ embeds: [embeds.Deathmatch(profile)] });
+            else
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
 
         else if (input_gamemode.toUpperCase() === "OPERATOR") {
@@ -205,10 +205,10 @@ client.on("messageCreate", async message => {
             let profile = await R6.operator(input_platform, input_name, input_operator);
             //console.log(profile);
 
-            if (profile === "NOT_FOUND")
-                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
-            else
+            if (profile.header)
                 return message.channel.send({ embeds: [embeds.Operator(profile)] });
+            else
+                return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
 
         else
