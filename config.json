@@ -1,6 +1,6 @@
 {
     "name": "R6Bot",
-    "PREFIX": "-",
+    "PREFIX": "+",
     "COLOR":"#ff00ee",
     "ENABLE_DEFAULT_PLATFORM": true,
     "DEFAULT_PLATFORM": "pc",
