@@ -8,7 +8,7 @@ module.exports = function () {
         .setColor(config.COLOR)
         .addFields(
             {
-                name: 'R6 Tracker', value: 
+                name: config.name, value:
                 `ace, thermite, ash ,sledge, fuze, amaru, glaz, 
                 zofia, thatcher, capitao, buck, blackbeard, ying, 
                 nomad, finka, kali, hibana, montagne, lion, blitz, 

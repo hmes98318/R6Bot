@@ -20,14 +20,14 @@ module.exports = {
 				.setRequired(true))
 		.addStringOption(option =>
 			option.setName('mode')
-				.setDescription('game mode Rank, Casual, General')
+				.setDescription('game mode General, Casual, Rank, Unrank, Deathmatch')
 				.setRequired(true)
 				.addChoice('general', 'GENERAL')
 				.addChoice('casual', 'CASUAL')
 				.addChoice('rank', 'RANK')
 				.addChoice('unrank', 'UNRANK')
 				.addChoice('deathmatch', 'DEATHMATCH')
-)
+		)
 	,
 	async execute(interaction) {
 		await interaction.deferReply();
@@ -38,20 +38,32 @@ module.exports = {
 
 
 
+		if (mode === "GENERAL") {
+			let profile = await R6.general(platform, name);
+			if (profile.header)
+				return await interaction.editReply({ embeds: [embed.General(profile)] });
+		}
+		else if (mode === "CASUAL") {
+			let profile = await R6.casual(platform, name);
+			if (profile.header)
+				return await interaction.editReply({ embeds: [embed.Casual(profile)] });
+		}
+		else if (mode === "RANK") {
+			let profile = await R6.rank(platform, name);
+			if (profile.header)
+				return await interaction.editReply({ embeds: [embed.Rank(profile)] });
+		}
+		else if (mode === "UNRANK") {
+			let profile = await R6.unrank(platform, name);
+			if (profile.header)
+				return await interaction.editReply({ embeds: [embed.Unrank(profile)] });
+		}
+		else if (mode === "DEATHMATCH") {
+			let profile = await R6.deathmatch(platform, name);
+			if (profile.header)
+				return await interaction.editReply({ embeds: [embed.Deathmatch(profile)] });
+		}
 
-		if (profile.length) {
-			if (mode === "RANK") {
-				return await interaction.editReply({ embeds: [R6.rank(profile)] });
-			}
-			else if (mode === "CASUAL") {
-				return await interaction.editReply({ embeds: [R6.casual(profile)] });
-			}
-			else if (mode === "GENERAL") {
-				return await interaction.editReply({ embeds: [R6.general(profile)] });
-			}
-		}
-		else {
-			return await interaction.editReply({ embeds: [embed.Help_Not_Found()] });
-		}
+		return await interaction.editReply({ embeds: [embed.Help_Not_Found()] });
 	}
 };

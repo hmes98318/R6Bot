@@ -8,6 +8,6 @@ module.exports = {
         .setDescription('r6 help')
     ,
     async execute(interaction) {
-        interaction.reply({ embeds: [embed.R6_help()] });
+        interaction.reply({ embeds: [embed.Help()] });
     }
 };
