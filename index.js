@@ -133,11 +133,11 @@ client.on("messageCreate", async message => {
         let input_gamemode = args[2];
         let input_operator = args[3];
 
-        console.log("args:", args);
-        console.log("input_platform:", input_platform);
-        console.log("input_name:", input_name);
-        console.log("input_gamemode:", input_gamemode);
-        console.log("input_operator:", input_operator);
+        //console.log("args:", args);
+        //console.log("input_platform:", input_platform);
+        //console.log("input_name:", input_name);
+        //console.log("input_gamemode:", input_gamemode);
+        //console.log("input_operator:", input_operator);
 
 
         if (!input_gamemode) {
