@@ -1,40 +1,54 @@
 # R6Bot
-Rainbow Six Siege stats Discord Bot 
+**Rainbow Six Siege stats Discord Bot**  
 
-### New version coming soon  
+**This Bot depends on the [`r6s-stats-api`](https://github.com/hmes98318/r6s-stats-api) module to fetch statistics**  
 
 ### Reference version  
-**node.js  `v16.13.2`**  
-**discord.js  `v13.6.0`**  
-  
-  
-  
+[**node.js  `v16.15.0`**](https://nodejs.org/en/)  
+[**discord.js  `v13.6.0`**](https://discord.js.org/#/)  
+
+
+### Dependencies Modules  
+* **discord.js `^13.6.0`**  
+* **@discordjs/rest `^0.3.0`**  
+* **r6s-stats-api `^1.0.1`**  
+* **dotenv `^16.0.0`**  
+
+
+
 # Installation
 
 ### Clone the repository
 ```
-git clone https://github.com/hmes98318/r6-discord-bot.git
+git clone -b v2.0.0 https://github.com/hmes98318/r6-discord-bot.git
 ```
 
-### Install the depedences
+### Install the depedences  
+auto install all dependencies on [`package.json`](./package.json)  
 ```
-npm install discord.js @discordjs/rest axios cheerio  
+npm install
 ```
 
-### Modify `config.json`
+### Configure Files  
+[`.env`](./.env) 
+```env
+TOKEN = "your_token"
+```
+[`config.json`](./config.json)  
 ```json
 {
-    "TOKEN": "yourToken",
-    "CLIENT_ID": "yourClientID",
-    "GUILD_ID": "yourGuildID",
-    "Text_Commands": true,
-    "Slash_Commands": true,
-    "load_Slash_Global": false,
-    "tracker_timeout": 5000,
+    "name": "R6Bot",
     "PREFIX": "+",
-    "name": "R6Bot"
+    "COLOR":"#ff00ee",
+    "ENABLE_DEFAULT_PLATFORM": true,
+    "DEFAULT_PLATFORM": "pc",
+    "SLASH_COMMANDS":true,
+    "GUILD_ID":"your_GUILD_ID",
+    "LOAD_SLASH_GLOBAL": false
 }
 ```
+Setting the `"DEFAULT_PLATFORM"` allows you to omit that platform in the command part  
+If `LOAD_SLASH_GLOBAL` is `false` only valid in that Guild, otherwise that will valid in all Guild.
 
 ## Running the script 
 
@@ -42,25 +56,21 @@ npm install discord.js @discordjs/rest axios cheerio
 node index.js
 ```
 
-## Command
-If you don't want txt commands or slash commands you can revise `./config.json`  
-if `load_Slash_Global` is `false` only valid in that Guild,  
-otherwise that will valid in all Guild.
-
+## Commands
 
 get profile
 ```
-+r6 [PC/XBOX/PSN] [PLAYER_NAME]
++r6 [PC/XBOX/PSN] <PLAYER_NAME>
 ```
 
-get Rank or Casual statistics
+get Casual, Rank, Unrank, Deathmatch statistics  
 ```
-+r6 [PC/XBOX/PSN] [PLAYER_NAME] [RANK/CASUAL]
++r6 [PC/XBOX/PSN] <PLAYER_NAME> [RANK/CASUAL/UNRANK/DEATHMATCH]
 ```
 
-get operator statistics
+get Operators statistics  
 ```
-+r6 [PC/XBOX/PSN] [PLAYER_NAME] operator [OPERATOR_NAME]
++r6 [PC/XBOX/PSN] <PLAYER_NAME> operator <OPERATOR_NAME>
 ```
 
 get help
