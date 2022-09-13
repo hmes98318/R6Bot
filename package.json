@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/hmes98318/R6Bot#readme",
   "dependencies": {
-    "@discordjs/rest": "^0.3.0",
-    "discord.js": "^13.6.0",
-    "dotenv": "^16.0.0",
-    "r6s-stats-api": "^1.0.1"
+    "@discordjs/rest": "^1.1.0",
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.2",
+    "r6s-stats-api": "^1.1.0"
   }
 }
