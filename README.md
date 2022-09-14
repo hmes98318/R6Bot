@@ -5,14 +5,14 @@
 
 ### Reference version  
 [**node.js  `v16.15.0`**](https://nodejs.org/en/)  
-[**discord.js  `v13.6.0`**](https://discord.js.org/#/)  
+[**discord.js  `v14.3.0`**](https://discord.js.org/#/)  
 
 
 ### Dependencies Modules  
-* **discord.js `^13.6.0`**  
-* **@discordjs/rest `^0.3.0`**  
-* **r6s-stats-api `^1.0.1`**  
-* **dotenv `^16.0.0`**  
+* [**r6s-stats-api`v1.1.1`**](https://www.npmjs.com/package/r6s-stats-api)  
+* [**discord.js `v14.3.0`**](https://www.npmjs.com/package/discord.js)  
+* [**@discordjs/rest `v1.1.0`**](https://www.npmjs.com/package/@discordjs/rest)  
+* [**dotenv `v16.0.2`**](https://www.npmjs.com/package/dotenv)  
 
 
 
