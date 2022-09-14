@@ -20,8 +20,9 @@
 
 ### Clone the repository
 ```
-git clone -b v2.0.0 https://github.com/hmes98318/R6Bot.git
+git clone -b v2.1.0 https://github.com/hmes98318/R6Bot.git
 ```
+or [**click here**](https://github.com/hmes98318/R6Bot/releases) to download
 
 ### Install the depedences  
 auto install all dependencies on [`package.json`](./package.json)  
