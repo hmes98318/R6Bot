@@ -1,11 +1,10 @@
-exports.General = require('./lib/general.js');
-exports.Casual = require('./lib/casual.js');
-exports.Rank = require('./lib/rank.js');
-exports.Unrank = require('./lib/unrank.js');
-exports.Deathmatch = require('./lib/deathmatch.js');
-exports.Operator = require('./lib/operator.js');
+exports.General = require('./lib/general');
+exports.Casual = require('./lib/casual');
+exports.Rank = require('./lib/rank');
+exports.Deathmatch = require('./lib/deathmatch');
+exports.Operator = require('./lib/operator');
 
-exports.Help = require('./lib/help/help.js');
-exports.Help_Not_Found = require('./lib/help/help-NotFound.js');
-exports.Help_operator = require('./lib/help/help-Operator.js');
-exports.Help_platform = require('./lib/help/help-Platform.js');
+exports.Help = require('./lib/help/help');
+exports.Help_Not_Found = require('./lib/help/help-NotFound');
+exports.Help_operator = require('./lib/help/help-Operator');
+exports.Help_platform = require('./lib/help/help-Platform');

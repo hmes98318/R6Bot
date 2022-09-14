@@ -4,7 +4,7 @@ const config = require('../../../../config.json');
 const prefix = config.PREFIX;
 
 module.exports = function () {
-    const trackerEmbed = new Discord.MessageEmbed()
+    const trackerEmbed = new Discord.EmbedBuilder()
         .setColor(config.COLOR)
         .addFields(
             { name: 'R6 Tracker', value: `${prefix}r6 [pc/xbox/psn] [name] [casual/rank]`, inline: true },

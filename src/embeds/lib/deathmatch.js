@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const color = require('../../../config.json').COLOR;
 
 module.exports = function (profile) {
-    const trackerEmbed = new Discord.MessageEmbed()
+    const trackerEmbed = new Discord.EmbedBuilder()
         .setColor(color)
         .setTitle(`Open ${profile.name} profile`)
         .setURL(profile.url)
