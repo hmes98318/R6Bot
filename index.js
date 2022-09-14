@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const { Client, Intents, Collection } = require('discord.js');
+const { Routes } = require('discord-api-types/v10');
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 
 const R6 = require('r6s-stats-api');
 const embeds = require('./src/embeds/embeds.js');
@@ -14,10 +14,14 @@ const config = require('./config.json');
 
 const client = new Client({
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES
-    ]
-});
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildBans,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.MessageContent,
+    ],
+    partials: [Partials.Channel],
+  });
 
 const TOKEN = process.env.TOKEN;
 client.login(TOKEN);
@@ -94,11 +98,9 @@ client.on('interactionCreate', async interaction => {
 
 client.on("messageCreate", async message => {
 
-    if (message.author.bot) // if the message sender is bot
-        return;
+    if (message.author.bot) return; // if the message sender is bot
 
-    if (message.content.indexOf(config.PREFIX) !== 0) // if the config.PREFIX not in message.content[0]
-        return;
+    if (message.content.indexOf(config.PREFIX) !== 0) return; // if the config.PREFIX not in message.content[0]
 
 
     let args = message.content.slice(config.PREFIX.length).trim().split(/ +/g);
@@ -173,7 +175,7 @@ client.on("messageCreate", async message => {
             else
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
-
+/*
         else if (input_gamemode.toUpperCase() === "UNRANK") {
             console.log("UNRANK");
             let profile = await R6.unrank(input_platform, input_name);
@@ -184,7 +186,7 @@ client.on("messageCreate", async message => {
             else
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }
-
+*/
         else if (input_gamemode.toUpperCase() === "DEATHMATCH") {
             console.log("DEATHMATCH");
             let profile = await R6.deathmatch(input_platform, input_name);
@@ -207,6 +209,8 @@ client.on("messageCreate", async message => {
 
             if (profile.header)
                 return message.channel.send({ embeds: [embeds.Operator(profile)] });
+            else if (profile === "OPERATOR_ERROR")
+                return message.channel.send({ embeds: [embeds.Help_operator(profile)] });
             else
                 return message.channel.send({ embeds: [embeds.Help_Not_Found()] });
         }

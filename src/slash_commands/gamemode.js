@@ -11,23 +11,25 @@ module.exports = {
 			option.setName('platform')
 				.setDescription('game platform')
 				.setRequired(true)
-				.addChoice('pc', 'pc')
-				.addChoice('psn', 'psn')
-				.addChoice('xbox', 'xbox'))
+				.addChoices(
+					{ name: 'pc', value: 'pc' },
+					{ name: 'psn', value: 'psn' },
+					{ name: 'xbox', value: 'xbox' },
+					))
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('player name')
 				.setRequired(true))
 		.addStringOption(option =>
 			option.setName('mode')
-				.setDescription('game mode General, Casual, Rank, Unrank, Deathmatch')
+				.setDescription('game mode General, Casual, Rank, Deathmatch')
 				.setRequired(true)
-				.addChoice('general', 'GENERAL')
-				.addChoice('casual', 'CASUAL')
-				.addChoice('rank', 'RANK')
-				.addChoice('unrank', 'UNRANK')
-				.addChoice('deathmatch', 'DEATHMATCH')
-		)
+				.addChoices(
+					{ name: 'general', value: 'GENERAL' },
+					{ name: 'casual', value: 'CASUAL' },
+					{ name: 'rank', value: 'RANK' },
+					{ name: 'deathmatch', value: 'DEATHMATCH' }
+					))
 	,
 	async execute(interaction) {
 		await interaction.deferReply();
@@ -53,11 +55,13 @@ module.exports = {
 			if (profile.header)
 				return await interaction.editReply({ embeds: [embed.Rank(profile)] });
 		}
+/*
 		else if (mode === "UNRANK") {
 			let profile = await R6.unrank(platform, name);
 			if (profile.header)
 				return await interaction.editReply({ embeds: [embed.Unrank(profile)] });
 		}
+*/
 		else if (mode === "DEATHMATCH") {
 			let profile = await R6.deathmatch(platform, name);
 			if (profile.header)

@@ -11,9 +11,11 @@ module.exports = {
             option.setName('platform')
                 .setDescription('game platform')
                 .setRequired(true)
-                .addChoice('pc', 'pc')
-                .addChoice('psn', 'psn')
-                .addChoice('xbox', 'xbox'))
+                .addChoices(
+					{ name: 'pc', value: 'pc' },
+					{ name: 'psn', value: 'psn' },
+					{ name: 'xbox', value: 'xbox' },
+					))
         .addStringOption(option =>
             option.setName('name')
                 .setDescription('player name')
