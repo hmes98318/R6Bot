@@ -54,7 +54,7 @@ client.on('ready', () => {
         }
 
 
-        const rest = new REST({ version: '9' })
+        const rest = new REST({ version: '10' })
             .setToken(TOKEN);
         (async () => {
             try {
