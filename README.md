@@ -2,6 +2,7 @@
 **Rainbow Six Siege stats Discord Bot**  
 
 **This Bot depends on the [`r6s-stats-api`](https://github.com/hmes98318/r6s-stats-api) module to fetch statistics**  
+Example bot invite [`link`](https://discord.com/oauth2/authorize?client_id=968916779734806578&permissions=0&scope=bot%20applications.commands).  
 
 ### Reference version  
 [**node.js  `v16.15.0`**](https://nodejs.org/en/)  
@@ -13,7 +14,6 @@
 * [**discord.js `v14.3.0`**](https://www.npmjs.com/package/discord.js)  
 * [**@discordjs/rest `v1.1.0`**](https://www.npmjs.com/package/@discordjs/rest)  
 * [**dotenv `v16.0.2`**](https://www.npmjs.com/package/dotenv)  
-
 
 
 # Installation
