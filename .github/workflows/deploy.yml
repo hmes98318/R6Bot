@@ -33,7 +33,7 @@ jobs:
                   images: |
                       ${{ secrets.DOCKER_REGISTRY }}/${{ secrets.DOCKER_IMAGE }}
                   tags: |
-                      type=ref,event=tag
+                      type=semver,pattern={{version}}
                   flavor: |
                       latest=true
 

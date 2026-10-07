@@ -60,14 +60,6 @@ For development, `npm run dev` executes TypeScript directly and restarts after s
 
 All command replies use embedded messages, including help, ping, and errors. Player statistics display the available player avatar beside the name. Player names and titles always link to that player's overview on `r6.tracker.network`. Text commands display typing while the bot processes the request.
 
-## Logs and recovery
-
-Winston writes JSON Lines to the console and `logs/r6bot-YYYY-MM-DD.log`. Timestamps and daily rotation use UTC. Files also rotate at the configured size, and old files are removed according to retention settings. Generated logs and rotation metadata are excluded from Git and Docker build contexts.
-
-Recognized text and slash commands record the Discord user name and ID, command content, server and channel IDs, and message or interaction ID. Completion records include duration and outcome. Validation failures, API errors, reply failures, and unexpected errors include diagnostic details and stack frames. The bot token and credential fields are redacted; upstream request and response objects are omitted.
-
-Command failures remain isolated so later commands can run. Process-level unhandled Promise rejections are logged. Uncaught exceptions stop the affected bot process after bounded cleanup; the supervisor starts a fresh process instead of continuing with damaged state. Ctrl+C and SIGTERM stop the supervisor and bot without restarting. Supervisor lifecycle records go to the console; the bot process owns the rotating files. See [Node.js process error guidance](https://nodejs.org/docs/latest-v24.x/api/process.html#warning-using-uncaughtexception-correctly).
-
 ## Text commands
 
 ```text
@@ -138,10 +130,6 @@ docker compose down
 ```
 
 Restart after configuration changes. Rebuild after source or dependency changes.
-
-### Publish to a private registry
-
-Configure the GitHub Actions repository secrets `DOCKER_REGISTRY`, `DOCKER_IMAGE`, `DOCKER_USERNAME`, and `DOCKER_PASSWORD`. Pushing a Git tag matching `*` triggers `.github/workflows/deploy.yml`, which builds the Dockerfile and publishes `${{ secrets.DOCKER_REGISTRY }}/${{ secrets.DOCKER_IMAGE }}` with the Git tag and `latest` image tags. See [registry publishing](docs/development.md#registry-publishing) for secret formats and runner access requirements.
 
 ## Development and checks
 

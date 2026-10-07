@@ -87,7 +87,7 @@ Restart the service after editing configuration. Rebuild after changing source o
 
 ### Registry publishing
 
-`.github/workflows/deploy.yml` runs when a Git tag matching `*` is pushed. It builds the root Dockerfile on `ubuntu-latest` and pushes `${{ secrets.DOCKER_REGISTRY }}/${{ secrets.DOCKER_IMAGE }}` with the Git tag and `latest` image tags. Docker metadata supplies the image tags and labels; Buildx caches build layers with the GitHub Actions cache backend. The workflow publishes an image; updating a running service remains a separate deployment step.
+`.github/workflows/deploy.yml` runs when a Git tag matching `*` is pushed. Release tags must use semantic versioning, optionally prefixed with `v`. It builds the root Dockerfile on `ubuntu-latest` and pushes `${{ secrets.DOCKER_REGISTRY }}/${{ secrets.DOCKER_IMAGE }}` with the semantic version and `latest` image tags. Docker metadata uses `type=semver,pattern={{version}}`, so Git tag `v3.0.0` produces Docker tags `3.0.0` and `latest`. Buildx caches build layers with the GitHub Actions cache backend. The workflow publishes an image; updating a running service remains a separate deployment step.
 
 Configure these GitHub Actions repository secrets before pushing a release tag:
 
