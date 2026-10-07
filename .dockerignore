@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+node_modules
+dist
+coverage
+logs
+.cache
+*.log
+tests
+scripts
+docs
+.github
+AGENTS.md
+README.md

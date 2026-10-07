@@ -1,0 +1,34 @@
+services:
+  r6bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: r6bot:latest
+
+    # Reap Chromium child processes and restart after unexpected exits.
+    init: true
+    restart: unless-stopped
+
+    # Inject the bot token at runtime.
+    env_file:
+      - .env
+
+    # Load public settings from the host without rebuilding the image.
+    volumes:
+      - type: bind
+        source: ./config.js
+        target: /bot/config.js
+        read_only: true
+      # Preserve rotating logs when the container is replaced.
+      - type: volume
+        source: bot-logs
+        target: /bot/logs
+
+    # Give Chromium enough shared memory for browser requests.
+    shm_size: 1gb
+
+    # Allow worker cleanup and the supervisor's stop deadline to finish.
+    stop_grace_period: 20s
+
+volumes:
+  bot-logs:

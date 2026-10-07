@@ -1,25 +1,54 @@
 {
-  "name": "r6bot",
-  "version": "2.1.0",
-  "description": "Rainbow Six Siege stats Discord Bot",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hmes98318/R6Bot.git"
-  },
-  "author": "hmes98318",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hmes98318/R6Bot/issues"
-  },
-  "homepage": "https://github.com/hmes98318/R6Bot#readme",
-  "dependencies": {
-    "@discordjs/rest": "^1.1.0",
-    "discord.js": "^14.3.0",
-    "dotenv": "^16.0.2",
-    "r6s-stats-api": "^1.1.0"
-  }
+    "name": "r6bot",
+    "version": "3.0.0",
+    "description": "Rainbow Six Siege player statistics for Discord Bot",
+    "type": "module",
+    "private": true,
+    "main": "dist/run.js",
+    "engines": {
+        "node": ">=24.15.0"
+    },
+    "scripts": {
+        "dev": "node --watch src/run.ts",
+        "build": "tsc -p tsconfig.build.json",
+        "start": "npm run check && node --enable-source-maps dist/run.js",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "node --test tests/*.test.ts",
+        "check": "npm run typecheck && npm run lint && npm test && npm run build",
+        "docker:build": "node scripts/docker-build.ts",
+        "docker:build:test": "node scripts/docker-build-test.ts",
+        "api:smoke": "node scripts/api-smoke-test.ts",
+        "runtime:smoke": "node scripts/runtime-recovery-test.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hmes98318/R6Bot.git"
+    },
+    "author": "hmes98318",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hmes98318/R6Bot/issues"
+    },
+    "homepage": "https://github.com/hmes98318/R6Bot#readme",
+    "dependencies": {
+        "discord.js": "14.27.0",
+        "dotenv": "18.0.5",
+        "r6s-stats-api": "2.0.0",
+        "winston": "3.19.0",
+        "winston-daily-rotate-file": "5.0.0",
+        "zod": "4.6.5"
+    },
+    "devDependencies": {
+        "@eslint/js": "10.0.1",
+        "@stylistic/eslint-plugin": "5.10.0",
+        "@types/node": "24.19.1",
+        "eslint": "10.11.0",
+        "typescript": "6.0.3",
+        "typescript-eslint": "8.71.0"
+    },
+    "allowScripts": {
+        "r6s-stats-api@2.0.0": true
+    }
 }

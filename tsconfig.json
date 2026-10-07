@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "ES2024",
+        "lib": ["ES2024"],
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "types": ["node"],
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitOverride": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "forceConsistentCasingInFileNames": true,
+        "verbatimModuleSyntax": true,
+        "erasableSyntaxOnly": true,
+        "rewriteRelativeImportExtensions": true,
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true
+    },
+    "include": ["src/**/*.ts", "tests/**/*.ts", "scripts/**/*.ts", "config.js"],
+    "exclude": ["node_modules", "dist"]
+}
